@@ -1,0 +1,20 @@
+Options -Indexes
+
+RewriteEngine On
+
+# ── PROTÉGER WordPress (/blog) ────────────────────────────────────────────────
+# Ne jamais rediriger quoi que ce soit dans /blog vers Node.js
+RewriteRule ^blog(/.*)?$ - [L]
+
+# ── SERVIR LES FICHIERS STATIQUES DIRECTEMENT ────────────────────────────────
+# Si le fichier existe sur le disque → Apache le sert sans passer par Node.js
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Si c'est un dossier statique → idem (ex: /_astro/)
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# ── PROXY VERS NODE.JS POUR TOUT LE RESTE (routes SSR) ───────────────────────
+# Toutes les autres requêtes (ex: /blog/mon-article) → serveur Node.js port 3862
+RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]
