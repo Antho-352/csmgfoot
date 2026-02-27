@@ -63,7 +63,7 @@ const prestations = [
             <h3 class="font-heading text-lg mb-2">{p.title}</h3>
             <p class="text-gray-600 mb-4">{p.description}</p>
             <div class="text-brand-green font-semibold">
-              {pricing.recrutement[p.key] ? `${pricing.recrutement[p.key].min}€ - ${pricing.recrutement[p.key].max}€` : ''}
+              {(pricing as any).recrutement && (pricing as any).recrutement[p.key] ? `${(pricing as any).recrutement[p.key].min}€ - ${(pricing as any).recrutement[p.key].max}€` : ''}
             </div>
           </div>
         ))}
