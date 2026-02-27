@@ -33,9 +33,12 @@ log "=============================================="
 log " 🚀 DÉPLOIEMENT AUTOMATIQUE - csmgfoot"
 log "=============================================="
 
-# Charger nvm si disponible (pour avoir accès à node/npm sur cPanel)
+# Charger nvm en supprimant d'abord le prefix npmrc conflictuel (cPanel)
+unset npm_config_prefix
+unset NPM_CONFIG_PREFIX
 export NVM_DIR="$HOME_DIR/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+nvm use --delete-prefix default --silent 2>/dev/null || nvm use default --silent 2>/dev/null || true
 
 # Vérifier que node est disponible
 if ! command -v node &> /dev/null; then
