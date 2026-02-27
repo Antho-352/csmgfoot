@@ -20,5 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Déploiement — ne pas versionner
+public/webhook.php
+*.webhook_secret
+
 # jetbrains setting folder
 .idea/
