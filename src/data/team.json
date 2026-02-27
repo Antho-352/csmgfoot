@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Antoine Dupont",
+    "role": "Directeur",
+    "photo": "/images/team/antoine-dupont.jpg"
+  },
+  {
+    "name": "Marie Curie",
+    "role": "Responsable Communication",
+    "photo": "/images/team/marie-curie.jpg"
+  },
+  {
+    "name": "Paul Pogba",
+    "role": "Consultant Recrutement",
+    "photo": "/images/team/paul-pogba.jpg"
+  }
+]
