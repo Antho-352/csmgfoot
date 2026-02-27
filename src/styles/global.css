@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-body text-gray-900 bg-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading uppercase tracking-wide;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Remove focus outline for mouse users, keep for keyboard */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-green;
+  }
+}
+
+@layer components {
+  /* Button styles */
+  .btn-primary {
+    @apply bg-brand-green text-white rounded-full px-8 py-4 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-brand-green-dark hover:-translate-y-0.5 focus-visible:outline-brand-green;
+  }
+
+  .btn-secondary {
+    @apply border-2 border-white text-white rounded-full px-8 py-4 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-white hover:text-brand-black focus-visible:outline-white;
+  }
+
+  .btn-dark {
+    @apply bg-brand-black text-white rounded-full px-8 py-4 font-semibold uppercase tracking-wide transition-all duration-300 hover:bg-gray-900 hover:-translate-y-0.5 focus-visible:outline-brand-black;
+  }
+
+  .btn-ghost {
+    @apply text-brand-green underline underline-offset-4 font-medium transition-colors duration-200 hover:text-brand-green-dark focus-visible:outline-brand-green;
+  }
+
+  /* Image filter for black and white effect */
+  .img-bw {
+    filter: grayscale(100%) contrast(1.1);
+  }
+
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-24 md:py-16;
+  }
+
+  /* Fade in up animation */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent;
+  }
+}

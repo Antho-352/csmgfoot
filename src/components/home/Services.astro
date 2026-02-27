@@ -1,0 +1,89 @@
+---
+const services = [
+  {
+    title: 'Communication',
+    icon: 'megaphone',
+    description: 'Construisez l\'identité de votre club. Site web, réseaux sociaux, identité visuelle — on gère tout.',
+    href: '/communication',
+  },
+  {
+    title: 'Recrutement',
+    icon: 'users',
+    description: 'Trouvez les bons profils au bon moment. Nous gérons vos recherches et accompagnons vos transferts.',
+    href: '/recrutement',
+  },
+  {
+    title: 'Formation',
+    icon: 'board',
+    description: 'Montez en compétences. Programmes de formation pour staff technique, coachs et dirigeants.',
+    href: '/formation',
+  },
+];
+---
+
+<section id="services" class="section-padding bg-white">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-in-up">
+      <h2 class="text-brand-black font-heading mb-4" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">
+        Nos expertises
+      </h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+        Trois lignes de service pour accompagner votre club dans sa croissance
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {services.map((service, index) => (
+        <div 
+          class="group bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 fade-in-up"
+          style={`transition-delay: ${index * 100}ms`}
+        >
+          <!-- Icon -->
+          <div class="w-16 h-16 rounded-full bg-brand-green/10 flex items-center justify-center mb-6 group-hover:bg-brand-green/20 transition-colors duration-300">
+            {service.icon === 'megaphone' && (
+              <svg class="w-8 h-8 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path>
+              </svg>
+            )}
+            {service.icon === 'users' && (
+              <svg class="w-8 h-8 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            )}
+            {service.icon === 'board' && (
+              <svg class="w-8 h-8 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+              </svg>
+            )}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-2xl font-heading text-brand-black mb-4 uppercase tracking-wide">
+            {service.title}
+          </h3>
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            {service.description}
+          </p>
+
+          <!-- CTA -->
+          <a 
+            href={service.href}
+            class="inline-flex items-center gap-2 text-brand-green font-medium hover:text-brand-green-dark transition-colors duration-200 group/link"
+          >
+            <span>En savoir plus</span>
+            <svg class="w-5 h-5 transform group-hover/link:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+            </svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFadeInUp } from '../../lib/utils';
+  initFadeInUp();
+</script>

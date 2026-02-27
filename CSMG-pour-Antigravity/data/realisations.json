@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "client": "FC Montbéliard Est",
+    "league": "Régional 2 BFC",
+    "service": "communication",
+    "service_label": "Communication",
+    "probleme": "Identité visuelle obsolète, aucune présence digitale.",
+    "solution": "Refonte identité, création site web, lancement réseaux sociaux.",
+    "resultat": "+340% abonnés Instagram en 4 mois. Nouveau sponsor signé."
+  },
+  {
+    "id": 2,
+    "client": "FC Roanne Loire",
+    "league": "Régional 2 AURA",
+    "service": "communication",
+    "service_label": "Communication",
+    "probleme": "Image vieillissante, difficulté à attirer de jeunes licenciés.",
+    "solution": "Refonte identité, campagne réseaux ciblée 15-25 ans.",
+    "resultat": "+18% de licenciés en 1 saison. 3 nouveaux partenaires."
+  },
+  {
+    "id": 3,
+    "client": "AS Saint-Gaudens Pyrénées",
+    "league": "National 3",
+    "service": "recrutement",
+    "service_label": "Recrutement",
+    "probleme": "Besoin urgent d'un gardien et d'un milieu défensif en janvier.",
+    "solution": "Analyse de 23 profils, 4 candidats présentés en 10 jours.",
+    "resultat": "2 joueurs recrutés. L'équipe a terminé 3ème de sa poule."
+  },
+  {
+    "id": 4,
+    "client": "Entente Sportive Louhans",
+    "league": "Régional 3",
+    "service": "recrutement",
+    "service_label": "Recrutement",
+    "probleme": "Reconstruction de l'effectif suite à plusieurs départs.",
+    "solution": "Audit effectif, sourcing et présentation de 8 profils ciblés.",
+    "resultat": "6 joueurs recrutés. Effectif complet dès la pré-saison."
+  },
+  {
+    "id": 5,
+    "client": "Union Sportive Boulonnaise",
+    "league": "Régional 1 Hauts-de-France",
+    "service": "formation",
+    "service_label": "Formation",
+    "probleme": "Staff peu formé aux méthodes modernes d'analyse vidéo.",
+    "solution": "Programme 5 sessions : analyse vidéo, tactique, préparation mentale.",
+    "resultat": "100% du staff certifié. Outil d'analyse adopté."
+  },
+  {
+    "id": 6,
+    "client": "Red Star Compiègne",
+    "league": "Régional 1 Hauts-de-France",
+    "service": "formation",
+    "service_label": "Formation",
+    "probleme": "Nouveau président souhaitant professionnaliser la gestion.",
+    "solution": "Formation management sportif, 3 journées pour 6 dirigeants.",
+    "resultat": "Outils modernes en place. Club restructuré."
+  }
+]

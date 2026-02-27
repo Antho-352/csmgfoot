@@ -1,0 +1,102 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import pricing from '../data/pricing.json';
+
+const seo = {
+  title: 'Communication | CSMG Foot',
+  description: "Identité visuelle, site web, réseaux sociaux, contenu — CSMG accompagne les clubs de football français dans leur communication.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Communication",
+    "provider": {
+      "@type": "Organization",
+      "name": "CSMG Foot"
+    },
+    "areaServed": "France entière"
+  }
+};
+
+const prestations = [
+  {
+    key: 'identite_visuelle',
+    title: 'Identité visuelle',
+    description: 'Logo, charte graphique, maillots',
+    icon: 'palette',
+  },
+  {
+    key: 'site_web',
+    title: 'Création site web club',
+    description: 'Site vitrine moderne, adapté mobile',
+    icon: 'monitor',
+  },
+  {
+    key: 'reseaux_sociaux',
+    title: 'Gestion réseaux sociaux',
+    description: 'Facebook, Instagram, TikTok',
+    icon: 'share',
+  },
+  {
+    key: 'pack_complet',
+    title: 'Pack communication complet',
+    description: 'Accompagnement annuel, tous supports',
+    icon: 'star',
+  },
+];
+---
+
+<PageLayout {...seo}>
+  <section class="section-padding bg-brand-black text-white">
+    <div class="container-custom">
+      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Communication</h1>
+      <p class="text-lg mb-8">Identité visuelle, site web, réseaux sociaux, contenu — CSMG accompagne les clubs de football français dans leur communication.</p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Prestations</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {prestations.map((p) => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up">
+            <div class="mb-4">
+              <!-- Icon placeholder -->
+              <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
+                <span class="text-brand-green text-2xl">{p.icon}</span>
+              </div>
+            </div>
+            <h3 class="font-heading text-lg mb-2">{p.title}</h3>
+            <p class="text-gray-600 mb-4">{p.description}</p>
+            <div class="text-brand-green font-semibold">
+              {pricing.communication[p.key] ? `${pricing.communication[p.key].min}€ - ${pricing.communication[p.key].max}€` : ''}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-6">Notre méthode</h2>
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Audit</h3>
+          <p class="text-gray-600">Analyse de l'identité, des besoins et des objectifs du club.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Stratégie</h3>
+          <p class="text-gray-600">Proposition de plan d'action sur-mesure, choix des supports et des messages.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Exécution</h3>
+          <p class="text-gray-600">Réalisation des supports, gestion des réseaux, suivi des résultats.</p>
+        </div>
+      </div>
+      <div class="mt-12 text-center">
+        <a href="/devis" class="btn-primary inline-block">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

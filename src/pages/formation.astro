@@ -1,0 +1,96 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import pricing from '../data/pricing.json';
+
+const seo = {
+  title: 'Formation | CSMG Foot',
+  description: "Formation staff technique, préparation mentale, management — CSMG accompagne les clubs de football français dans leur développement.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Formation",
+    "provider": {
+      "@type": "Organization",
+      "name": "CSMG Foot"
+    },
+    "areaServed": "France entière"
+  }
+};
+
+const programmes = [
+  {
+    key: 'stage_1j',
+    title: 'Stage formation (1 journée)',
+    description: 'Formation intensive sur une journée',
+    icon: 'calendar',
+  },
+  {
+    key: 'programme_5sessions',
+    title: 'Programme staff technique (5 sessions)',
+    description: 'Formation tactique moderne, UEFA',
+    icon: 'book',
+  },
+  {
+    key: 'formation_annuelle',
+    title: 'Formation annuelle staff',
+    description: 'Accompagnement annuel, coaching, data',
+    icon: 'graduation',
+  },
+];
+---
+
+<PageLayout {...seo}>
+  <section class="section-padding bg-brand-black text-white">
+    <div class="container-custom">
+      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Formation</h1>
+      <p class="text-lg mb-8">Formation staff technique, préparation mentale, management — CSMG accompagne les clubs de football français dans leur développement.</p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Programmes</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {programmes.map((p) => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up">
+            <div class="mb-4">
+              <!-- Icon placeholder -->
+              <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
+                <span class="text-brand-green text-2xl">{p.icon}</span>
+              </div>
+            </div>
+            <h3 class="font-heading text-lg mb-2">{p.title}</h3>
+            <p class="text-gray-600 mb-4">{p.description}</p>
+            <div class="text-brand-green font-semibold">
+              {pricing.formation[p.key] ? `${pricing.formation[p.key].min}€ - ${pricing.formation[p.key].max}€` : ''}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-6">Formats</h2>
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Présentiel</h3>
+          <p class="text-gray-600">Sessions en présentiel dans votre club ou région.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Distanciel</h3>
+          <p class="text-gray-600">Formations en ligne, coaching vidéo, suivi digital.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Hybride</h3>
+          <p class="text-gray-600">Mix présentiel/distanciel selon vos besoins.</p>
+        </div>
+      </div>
+      <div class="mt-12 text-center">
+        <a href="/devis" class="btn-primary inline-block">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

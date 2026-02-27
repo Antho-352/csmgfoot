@@ -1,0 +1,37 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Services from '../components/home/Services.astro';
+import WhyUs from '../components/home/WhyUs.astro';
+import Stats from '../components/home/Stats.astro';
+import AgencyPositioning from '../components/home/AgencyPositioning.astro';
+import CTASection from '../components/home/CTASection.astro';
+
+const seo = {
+  title: "L'agence qui fait gagner votre club | CSMG Foot",
+  description: "CSMG Foot accompagne les clubs de football français en communication, recrutement et formation. Agence nouvelle génération, 100% spécialisée foot.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CSMG Foot",
+    "url": "https://csmgfoot.fr",
+    "logo": "https://csmgfoot.fr/favicon.svg",
+    "description": "Agence spécialisée dans l'accompagnement des clubs de football français.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "FR"
+    },
+    "areaServed": "France entière"
+  }
+};
+---
+
+<PageLayout {...seo}>
+  <Hero />
+  <Services />
+  <WhyUs />
+  <Stats />
+  <AgencyPositioning />
+  <CTASection />
+</PageLayout>

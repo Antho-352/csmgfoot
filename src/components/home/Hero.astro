@@ -1,0 +1,57 @@
+---
+---
+
+<section class="relative min-h-screen flex items-center bg-brand-black overflow-hidden">
+  <!-- Background Image -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src="https://images.unsplash.com/photo-1459865264687-595d652de67e?w=1920&q=80"
+      alt="Stade de football"
+      class="w-full h-full object-cover img-bw opacity-30"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-brand-black/80 via-brand-black/60 to-brand-black"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-custom relative z-10 py-32">
+    <div class="max-w-4xl">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green/10 border border-brand-green/30 mb-8 fade-in-up">
+        <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+        <span class="text-brand-green text-sm font-medium">Disponible pour nouveaux clients</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-white font-heading mb-6 fade-in-up" style="font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.1;">
+        L'agence qui fait gagner votre club
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-gray-300 text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl fade-in-up">
+        Communication, recrutement et formation — CSMG accompagne les clubs de football français vers leur prochain niveau.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-col sm:flex-row gap-4 fade-in-up">
+        <a href="#services" class="btn-primary inline-block text-center">
+          Découvrir nos services
+        </a>
+        <a href="/devis" class="btn-secondary inline-block text-center">
+          Simuler un devis
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+    <div class="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1">
+      <div class="w-1.5 h-3 bg-brand-green rounded-full animate-bounce"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFadeInUp } from '../../lib/utils';
+  initFadeInUp();
+</script>

@@ -1,0 +1,74 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const seo = {
+  title: 'Contact | CSMG Foot',
+  description: "Contactez CSMG Foot pour toute demande d'accompagnement, devis ou information. Réponse sous 24h ouvrées.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CSMG Foot",
+    "url": "https://csmgfoot.fr",
+    "logo": "https://csmgfoot.fr/favicon.svg",
+    "description": "Agence spécialisée dans l'accompagnement des clubs de football français.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "FR"
+    },
+    "areaServed": "France entière"
+  }
+};
+---
+
+<PageLayout {...seo}>
+  <section class="section-padding bg-brand-black text-white">
+    <div class="container-custom">
+      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Contact</h1>
+      <p class="text-lg mb-8">Contactez CSMG Foot pour toute demande d'accompagnement, devis ou information. Réponse sous 24h ouvrées.</p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-custom grid grid-cols-1 md:grid-cols-2 gap-12">
+      <!-- Infos -->
+      <div>
+        <h2 class="font-heading text-brand-black mb-4">Informations</h2>
+        <ul class="space-y-2 mb-6">
+          <li><span class="font-semibold">Email :</span> <a href="mailto:contact@csmgfoot.fr" class="text-brand-green">contact@csmgfoot.fr</a></li>
+          <li><span class="font-semibold">Téléphone :</span> <span class="text-brand-green">+33 X XX XX XX XX</span></li>
+          <li><span class="font-semibold">Zone :</span> France entière — interventions sur tout le territoire</li>
+          <li><span class="font-semibold">Réponse :</span> Nous répondons sous 24h ouvrées</li>
+        </ul>
+      </div>
+      <!-- Formulaire Web3Forms -->
+      <div>
+        <h2 class="font-heading text-brand-black mb-4">Formulaire de contact</h2>
+        <form action="https://web3forms.com/submit" method="POST" class="space-y-4">
+          <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_KEY} />
+          <label>Prénom* <input type="text" name="prenom" required class="w-full border rounded-md p-2" /></label>
+          <label>Nom* <input type="text" name="nom" required class="w-full border rounded-md p-2" /></label>
+          <label>Email* <input type="email" name="email" required class="w-full border rounded-md p-2" /></label>
+          <label>Téléphone <input type="text" name="telephone" class="w-full border rounded-md p-2" /></label>
+          <label>Structure/Club <input type="text" name="club" class="w-full border rounded-md p-2" /></label>
+          <label>Message* <textarea name="message" required class="w-full border rounded-md p-2"></textarea></label>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" name="rgpd" required /> J'accepte la politique de confidentialité
+          </label>
+          <button type="submit" class="btn-primary w-full">Envoyer ma demande</button>
+          <div id="web3forms-success" class="hidden text-green-600 font-semibold mt-4">Votre demande a bien été envoyée !</div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <script>
+    // Web3Forms : afficher succès
+    const form = document.querySelector('form');
+    form?.addEventListener('submit', function (e) {
+      e.preventDefault();
+      setTimeout(() => {
+        document.getElementById('web3forms-success').classList.remove('hidden');
+      }, 1000);
+    });
+  </script>
+</PageLayout>

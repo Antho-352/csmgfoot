@@ -1,0 +1,70 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import realisations from '../data/realisations.json';
+
+const seo = {
+  title: 'Réalisations | CSMG Foot',
+  description: "Exemples de missions-types réalisées par CSMG Foot pour des clubs français : communication, recrutement, formation.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Réalisations",
+    "provider": {
+      "@type": "Organization",
+      "name": "CSMG Foot"
+    },
+    "areaServed": "France entière"
+  }
+};
+
+const services = ['Tous', 'Communication', 'Recrutement', 'Formation'];
+---
+
+<PageLayout {...seo}>
+  <section class="section-padding bg-brand-black text-white">
+    <div class="container-custom">
+      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Réalisations</h1>
+      <p class="text-lg mb-8">Exemples de missions-types réalisées par CSMG Foot pour des clubs français : communication, recrutement, formation.</p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="mb-8 flex flex-wrap gap-4">
+        {services.map((service) => (
+          <button class="btn-ghost" onclick={`filterRealisations('${service}')`}>{service}</button>
+        ))}
+      </div>
+      <div id="realisations-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {realisations.map((r) => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm fade-in-up">
+            <div class="mb-4">
+              <img src="https://images.unsplash.com/photo-1517927033932-b3d0d3c06c8a?w=600&q=80" alt="Club" class="img-bw rounded-xl w-full h-40 object-cover mb-2" />
+              <span class="inline-block bg-brand-green text-white rounded-full px-3 py-1 text-xs font-semibold mb-2">{r.service}</span>
+            </div>
+            <h3 class="font-heading text-lg mb-2">{r.client}</h3>
+            <p class="text-gray-600 text-sm mb-2">{r.league}</p>
+            <p class="text-gray-700 text-sm mb-2"><strong>Problème :</strong> {r.problem}</p>
+            <p class="text-gray-700 text-sm mb-2"><strong>Solution :</strong> {r.solution}</p>
+            <p class="text-gray-700 text-sm"><strong>Résultat :</strong> {r.result}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  <script>
+    // Filtre JS client-side
+    function filterRealisations(service) {
+      const grid = document.getElementById('realisations-grid');
+      const all = [...grid.children];
+      all.forEach(card => {
+        if (service === 'Tous' || card.querySelector('.bg-brand-green').textContent === service) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</PageLayout>

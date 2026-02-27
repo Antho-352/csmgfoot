@@ -1,0 +1,94 @@
+---
+const values = [
+  {
+    title: 'Réactivité',
+    description: 'Réponse rapide et suivi personnalisé pour avancer efficacement sur vos projets.',
+    icon: 'clock',
+  },
+  {
+    title: 'Spécialisation',
+    description: 'Focus 100% football — nous connaissons votre écosystème sur le bout des doigts.',
+    icon: 'target',
+  },
+  {
+    title: 'Sur-mesure',
+    description: 'Pas de solution standardisée. Chaque accompagnement est unique et adapté.',
+    icon: 'settings',
+  },
+  {
+    title: 'Transparence',
+    description: 'Communication claire, reporting régulier et visibilité totale sur nos actions.',
+    icon: 'eye',
+  },
+];
+---
+
+<section class="section-padding bg-gray-50">
+  <div class="container-custom">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Left Column: Text -->
+      <div class="fade-in-up">
+        <h2 class="text-brand-black font-heading mb-6" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">
+          Une agence nouvelle génération
+        </h2>
+        <p class="text-gray-700 text-lg leading-relaxed mb-6">
+          CSMG est née d'un constat simple : les clubs de football, quelle que soit leur taille, méritent un accompagnement professionnel pour se développer.
+        </p>
+        <p class="text-gray-700 text-lg leading-relaxed mb-8">
+          Notre approche combine expertise terrain et méthodes digitales modernes. Nous travaillons avec des clubs ambitieux qui souhaitent structurer leur développement et professionnaliser leur image.
+        </p>
+        <a href="/notre-agence" class="btn-primary inline-block">
+          Découvrir notre agence
+        </a>
+      </div>
+
+      <!-- Right Column: Values Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {values.map((value, index) => (
+          <div 
+            class="bg-white rounded-xl p-6 border border-gray-200 hover:border-brand-green/30 transition-all duration-300 fade-in-up"
+            style={`transition-delay: ${index * 100}ms`}
+          >
+            <!-- Icon -->
+            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center mb-4">
+              {value.icon === 'clock' && (
+                <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              )}
+              {value.icon === 'target' && (
+                <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              )}
+              {value.icon === 'settings' && (
+                <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                </svg>
+              )}
+              {value.icon === 'eye' && (
+                <svg class="w-5 h-5 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                </svg>
+              )}
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-lg font-heading text-brand-black mb-2 uppercase tracking-wide">
+              {value.title}
+            </h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              {value.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFadeInUp } from '../../lib/utils';
+  initFadeInUp();
+</script>

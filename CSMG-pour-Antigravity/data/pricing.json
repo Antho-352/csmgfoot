@@ -1,0 +1,58 @@
+{
+  "communication": {
+    "identite_visuelle": {
+      "label": "Identité visuelle (logo, charte)",
+      "min": 800,
+      "max": 2500
+    },
+    "site_web": {
+      "label": "Création site web club",
+      "min": 1200,
+      "max": 4000
+    },
+    "reseaux_sociaux": {
+      "label": "Gestion réseaux sociaux (3 mois)",
+      "min": 600,
+      "max": 1800
+    },
+    "pack_complet": {
+      "label": "Pack communication annuel",
+      "min": 3000,
+      "max": 8000
+    }
+  },
+  "recrutement": {
+    "recherche_ponctuelle": {
+      "label": "Recherche profil ciblé",
+      "min": 500,
+      "max": 1500
+    },
+    "transfert_complet": {
+      "label": "Accompagnement transfert complet",
+      "min": 1000,
+      "max": 3500
+    },
+    "partenariat_saison": {
+      "label": "Partenariat recrutement saison",
+      "min": 2000,
+      "max": 6000
+    }
+  },
+  "formation": {
+    "stage_1j": {
+      "label": "Stage formation (1 journée)",
+      "min": 400,
+      "max": 900
+    },
+    "programme_5sessions": {
+      "label": "Programme staff technique (5 sessions)",
+      "min": 1500,
+      "max": 3500
+    },
+    "formation_annuelle": {
+      "label": "Formation annuelle staff complet",
+      "min": 2500,
+      "max": 6000
+    }
+  }
+}

@@ -1,0 +1,85 @@
+---
+const reasons = [
+  {
+    title: 'Expertise foot',
+    description: 'Spécialistes du secteur footballistique français, nous parlons votre langage et comprenons vos enjeux.',
+    icon: 'trophy',
+  },
+  {
+    title: 'Approche digitale',
+    description: 'Méthodes modernes et outils de nouvelle génération pour maximiser l\'impact de vos actions.',
+    icon: 'lightning',
+  },
+  {
+    title: 'Sur-mesure',
+    description: 'Chaque club est unique, chaque solution aussi. Nous adaptons nos prestations à vos besoins réels.',
+    icon: 'puzzle',
+  },
+  {
+    title: 'Résultats mesurables',
+    description: 'KPIs clairs, reporting régulier et transparence totale sur l\'évolution de vos projets.',
+    icon: 'chart',
+  },
+];
+---
+
+<section class="section-padding bg-gray-50">
+  <div class="container-custom">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-in-up">
+      <h2 class="text-brand-black font-heading mb-4" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">
+        Pourquoi choisir CSMG ?
+      </h2>
+      <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+        Une agence nouvelle génération au service des clubs français
+      </p>
+    </div>
+
+    <!-- Reasons Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {reasons.map((reason, index) => (
+        <div 
+          class="bg-white rounded-2xl p-8 border border-gray-200 fade-in-up"
+          style={`transition-delay: ${index * 100}ms`}
+        >
+          <!-- Icon -->
+          <div class="w-12 h-12 rounded-full bg-brand-green/10 flex items-center justify-center mb-4">
+            {reason.icon === 'trophy' && (
+              <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+            )}
+            {reason.icon === 'lightning' && (
+              <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            )}
+            {reason.icon === 'puzzle' && (
+              <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+              </svg>
+            )}
+            {reason.icon === 'chart' && (
+              <svg class="w-6 h-6 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            )}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-heading text-brand-black mb-3 uppercase tracking-wide">
+            {reason.title}
+          </h3>
+          <p class="text-gray-600 leading-relaxed">
+            {reason.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFadeInUp } from '../../lib/utils';
+  initFadeInUp();
+</script>

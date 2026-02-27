@@ -1,0 +1,100 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import pricing from '../data/pricing.json';
+
+const seo = {
+  title: 'Recrutement | CSMG Foot',
+  description: "Recherche de profils, accompagnement de transferts, partenariat saison — CSMG accompagne les clubs de football français dans leur recrutement.",
+  image: '/og-default.jpg',
+  jsonLd: {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Recrutement",
+    "provider": {
+      "@type": "Organization",
+      "name": "CSMG Foot"
+    },
+    "areaServed": "France entière"
+  }
+};
+
+const prestations = [
+  {
+    key: 'recherche_ponctuelle',
+    title: 'Recherche ponctuelle',
+    description: 'Recherche et sourcing de profils',
+    icon: 'search',
+  },
+  {
+    key: 'transfert_complet',
+    title: 'Accompagnement transfert',
+    description: 'Évaluation, shortlisting, administratif',
+    icon: 'exchange',
+  },
+  {
+    key: 'partenariat_saison',
+    title: 'Partenariat saison',
+    description: 'Partenariat recrutement sur la saison',
+    icon: 'handshake',
+  },
+];
+---
+
+<PageLayout {...seo}>
+  <section class="section-padding bg-brand-black text-white">
+    <div class="container-custom">
+      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Recrutement</h1>
+      <p class="text-lg mb-8">Recherche de profils, accompagnement de transferts, partenariat saison — CSMG accompagne les clubs de football français dans leur recrutement.</p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Prestations</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {prestations.map((p) => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up">
+            <div class="mb-4">
+              <!-- Icon placeholder -->
+              <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
+                <span class="text-brand-green text-2xl">{p.icon}</span>
+              </div>
+            </div>
+            <h3 class="font-heading text-lg mb-2">{p.title}</h3>
+            <p class="text-gray-600 mb-4">{p.description}</p>
+            <div class="text-brand-green font-semibold">
+              {pricing.recrutement[p.key] ? `${pricing.recrutement[p.key].min}€ - ${pricing.recrutement[p.key].max}€` : ''}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <h2 class="font-heading text-brand-black mb-6">Notre méthode</h2>
+      <div class="flex flex-col md:flex-row gap-8">
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Brief</h3>
+          <p class="text-gray-600">Analyse du besoin du club et définition du profil recherché.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Sourcing</h3>
+          <p class="text-gray-600">Recherche, évaluation et shortlisting des candidats.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Sélection</h3>
+          <p class="text-gray-600">Présentation des profils retenus et accompagnement administratif.</p>
+        </div>
+        <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
+          <h3 class="font-heading text-brand-green mb-2">Transfert</h3>
+          <p class="text-gray-600">Suivi post-recrutement et reporting.</p>
+        </div>
+      </div>
+      <div class="mt-12 text-center">
+        <a href="/devis" class="btn-primary inline-block">Demander un devis</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

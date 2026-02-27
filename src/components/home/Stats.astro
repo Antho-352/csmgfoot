@@ -1,0 +1,82 @@
+---
+const stats = [
+  { value: 3, label: 'Expertises', suffix: '' },
+  { value: 50, label: 'Clubs accompagnés', prefix: '+' },
+  { value: 1, label: 'France entière', suffix: '' },
+  { value: 24, label: 'Réponse sous 24h', suffix: 'h' },
+];
+---
+
+<section class="section-padding bg-brand-black">
+  <div class="container-custom">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      {stats.map((stat, index) => (
+        <div 
+          class="text-center fade-in-up"
+          style={`transition-delay: ${index * 100}ms`}
+        >
+          <div class="mb-2">
+            <span class="text-5xl md:text-6xl font-heading text-white">
+              {stat.prefix || ''}
+              <span 
+                class="stat-number" 
+                data-target={stat.value}
+              >
+                0
+              </span>
+              {stat.suffix || ''}
+            </span>
+          </div>
+          <div class="text-brand-green font-medium uppercase tracking-wide text-sm">
+            {stat.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initFadeInUp } from '../../lib/utils';
+  
+  // Initialize fade-in animations
+  initFadeInUp();
+
+  // CountUp animation for stats
+  const statElements = document.querySelectorAll('.stat-number');
+  let hasAnimated = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          hasAnimated = true;
+          
+          statElements.forEach((element) => {
+            const target = parseInt((element as HTMLElement).dataset.target || '0');
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              element.textContent = Math.floor(current).toString();
+            }, 16);
+          });
+          
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+
+  const statsSection = document.querySelector('.section-padding.bg-brand-black');
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+</script>
