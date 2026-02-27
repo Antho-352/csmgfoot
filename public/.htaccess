@@ -3,31 +3,23 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
-# ── 1. Fix cPanel : /index.php → / ───────────────────────────────────────────
+# ── 1. Fix cPanel : supprime /index.php fantôme ──────────────────────────────
 RewriteCond %{THE_REQUEST} \s/(.*)index\.php[\s?]
 RewriteRule ^ /%1 [R=301,L]
 
-# ── 2. Protéger UNIQUEMENT les fichiers WordPress (pas l'URL /blog/*) ─────────
-# L'admin WP, l'API REST et les assets WP sont servis par Apache directement.
-# Les pages /blog/ et /blog/slug sont gérées par Astro (Node.js SSR).
-RewriteRule ^blog/wp-admin(/.*)?$    - [L]
-RewriteRule ^blog/wp-login\.php$     - [L]
-RewriteRule ^blog/wp-json(/.*)?$     - [L]
-RewriteRule ^blog/wp-content(/.*)?$  - [L]
-RewriteRule ^blog/wp-includes(/.*)?$ - [L]
-RewriteRule ^blog/xmlrpc\.php$       - [L]
-RewriteRule ^blog/wp-cron\.php$      - [L]
+# ── 2. WordPress : TOUT /blog → servi par Apache/WP directement ──────────────
+RewriteRule ^blog(/.*)?$ - [L]
 
-# ── 3. Servir les fichiers statiques existants directement ───────────────────
-# Assets : _astro/, favicon.ico, robots.txt, sitemap.xml, images, etc.
+# ── 3. Fichiers statiques existants → servis directement ─────────────────────
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# ── 4. Servir index.html si le dossier en contient un ────────────────────────
+# ── 4. Dossiers avec index.html → servi directement ──────────────────────────
 # Ex: /notre-agence/ → public_html/notre-agence/index.html
-# Ex: /communication/ → public_html/communication/index.html
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}index.html -f
-RewriteRule ^ %{REQUEST_URI}index.html [L]
+# Ex: /             → public_html/index.html
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}index.html -f
+RewriteRule ^(.*)$ /$1index.html [L]
 
-# ── 5. Tout le reste → Node.js Astro (SSR : /blog/, /blog/article-slug, etc.) ─
+# ── 5. Reste → Node.js Astro SSR (uniquement les routes dynamiques) ───────────
 RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]
