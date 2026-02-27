@@ -2,19 +2,22 @@ Options -Indexes
 
 RewriteEngine On
 
-# ── PROTÉGER WordPress (/blog) ────────────────────────────────────────────────
-# Ne jamais rediriger quoi que ce soit dans /blog vers Node.js
+# ── CORRIGER LE QUIRK cPanel : /index.php → / ────────────────────────────────
+# cPanel tente de servir index.php comme DirectoryIndex — on le redirige vers /
+RewriteCond %{THE_REQUEST} \s/(.*)index\.php[\s?]
+RewriteRule ^ /%1 [R=301,L]
+
+# ── PROTÉGER WORDPRESS (/blog) ────────────────────────────────────────────────
 RewriteRule ^blog(/.*)?$ - [L]
 
 # ── SERVIR LES FICHIERS STATIQUES DIRECTEMENT ────────────────────────────────
-# Si le fichier existe sur le disque → Apache le sert sans passer par Node.js
+# _astro/, favicon.ico, robots.txt, sitemap.xml, og-default.jpg, etc.
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Si c'est un dossier statique → idem (ex: /_astro/)
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-
-# ── PROXY VERS NODE.JS POUR TOUT LE RESTE (routes SSR) ───────────────────────
-# Toutes les autres requêtes (ex: /blog/mon-article) → serveur Node.js port 3862
+# ── TOUT LE RESTE → PROXY VERS NODE.JS (port 3862) ───────────────────────────
+# / → homepage Astro SSR
+# /blog → liste des articles (WP temps réel)
+# /blog/mon-article → article SSR
+# /communication → page communication
 RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]

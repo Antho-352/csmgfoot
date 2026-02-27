@@ -1,44 +1,81 @@
 ---
-import BlogLayout from '../../layouts/BlogLayout.astro';
-import { getPosts } from '../../lib/wordpress';
+export const prerender = false;
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getPosts } from "../../lib/wordpress";
 
-const page = Astro.url.searchParams.get('page') || 1;
+const page = Astro.url.searchParams.get("page") || 1;
 const { posts, total, totalPages } = await getPosts(Number(page), 9);
 
 const seo = {
-  title: 'Blog | CSMG Foot',
-  description: "Actualités, conseils et analyses pour les clubs de football français. Articles publiés via WordPress headless.",
-  image: '/og-default.jpg',
+  title: "Blog | CSMG Foot",
+  description:
+    "Actualités, conseils et analyses pour les clubs de football français. Articles publiés via WordPress headless.",
+  image: "/og-default.jpg",
   jsonLd: {
     "@context": "https://schema.org",
     "@type": "Blog",
-    "name": "Blog CSMG Foot",
-    "url": "https://csmgfoot.fr/blog"
-  }
+    name: "Blog CSMG Foot",
+    url: "https://csmgfoot.fr/blog",
+  },
 };
 ---
 
 <BlogLayout {...seo}>
   <section class="section-padding bg-white">
     <div class="container-custom">
-      <h1 class="font-heading mb-8" style="font-size: clamp(2.5rem, 5vw, 4rem);">Blog</h1>
+      <h1
+        class="font-heading mb-8"
+        style="font-size: clamp(2.5rem, 5vw, 4rem);"
+      >
+        Blog
+      </h1>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.map((post) => (
-          <article class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm fade-in-up">
-            <img src={post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/og-default.jpg'} alt={post._embedded?.['wp:featuredmedia']?.[0]?.alt_text || post.title.rendered} class="img-bw rounded-xl w-full h-40 object-cover mb-2" />
-            <span class="inline-block bg-brand-green text-white rounded-full px-3 py-1 text-xs font-semibold mb-2">{post._embedded?.['wp:term']?.[0]?.[0]?.name || 'Article'}</span>
-            <h2 class="font-heading text-lg mb-2">{post.title.rendered}</h2>
-            <p class="text-gray-600 text-sm mb-2">{new Date(post.date).toLocaleDateString('fr-FR')}</p>
-            <p class="text-gray-700 text-sm mb-2" set:html={post.excerpt.rendered}></p>
-            <a href={`/blog/${post.slug}`} class="btn-ghost mt-2">Lire l'article</a>
-          </article>
-        ))}
+        {
+          posts.map((post) => (
+            <article class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm fade-in-up">
+              <img
+                src={
+                  post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+                  "/og-default.jpg"
+                }
+                alt={
+                  post._embedded?.["wp:featuredmedia"]?.[0]?.alt_text ||
+                  post.title.rendered
+                }
+                class="img-bw rounded-xl w-full h-40 object-cover mb-2"
+              />
+              <span class="inline-block bg-brand-green text-white rounded-full px-3 py-1 text-xs font-semibold mb-2">
+                {post._embedded?.["wp:term"]?.[0]?.[0]?.name || "Article"}
+              </span>
+              <h2 class="font-heading text-lg mb-2">{post.title.rendered}</h2>
+              <p class="text-gray-600 text-sm mb-2">
+                {new Date(post.date).toLocaleDateString("fr-FR")}
+              </p>
+              <p
+                class="text-gray-700 text-sm mb-2"
+                set:html={post.excerpt.rendered}
+              />
+              <a href={`/blog/${post.slug}`} class="btn-ghost mt-2">
+                Lire l'article
+              </a>
+            </article>
+          ))
+        }
       </div>
       <!-- Pagination -->
       <div class="flex justify-center mt-12 gap-2">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <a href={`?page=${i + 1}`} class={`btn-ghost ${Number(page) === i + 1 ? 'text-brand-green font-bold' : ''}`}>{i + 1}</a>
-        ))}
+        {
+          Array.from({ length: totalPages }, (_, i) => (
+            <a
+              href={`?page=${i + 1}`}
+              class={`btn-ghost ${
+                Number(page) === i + 1 ? "text-brand-green font-bold" : ""
+              }`}
+            >
+              {i + 1}
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

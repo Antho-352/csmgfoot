@@ -1,6 +1,16 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import pricing from '../data/pricing.json';
+import pricingData from '../data/pricing.json';
+
+// pricing.json est un tableau [{type, services:[{name, price}]}]
+// On construit un map clé → prix pour la section communication
+const commServices = (pricingData as any[]).find(p => p.type === 'communication')?.services || [];
+const pricingMap: Record<string, number> = {
+  identite_visuelle: commServices.find((s: any) => s.name === 'Identité visuelle')?.price,
+  site_web:          commServices.find((s: any) => s.name === 'Site web')?.price,
+  reseaux_sociaux:   commServices.find((s: any) => s.name === 'Réseaux sociaux')?.price,
+  pack_complet:      commServices.find((s: any) => s.name === 'Pack communication complet')?.price,
+};
 
 const seo = {
   title: 'Communication | CSMG Foot',
@@ -69,7 +79,7 @@ const prestations = [
             <h3 class="font-heading text-lg mb-2">{p.title}</h3>
             <p class="text-gray-600 mb-4">{p.description}</p>
             <div class="text-brand-green font-semibold">
-              {pricing.communication[p.key] ? `${pricing.communication[p.key].min}€ - ${pricing.communication[p.key].max}€` : ''}
+              {pricingMap[p.key] ? `À partir de ${pricingMap[p.key]}€` : ''}
             </div>
           </div>
         ))}
