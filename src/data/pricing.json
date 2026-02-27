@@ -1,0 +1,25 @@
+[
+  {
+    "type": "communication",
+    "services": [
+      { "name": "Identité visuelle", "price": 500 },
+      { "name": "Site web", "price": 1500 },
+      { "name": "Réseaux sociaux", "price": 800 },
+      { "name": "Pack communication complet", "price": 2500 }
+    ]
+  },
+  {
+    "type": "recrutement",
+    "services": [
+      { "name": "Recherche ponctuelle", "price": 300 },
+      { "name": "Accompagnement transfert", "price": 1200 }
+    ]
+  },
+  {
+    "type": "formation",
+    "services": [
+      { "name": "Formation staff", "price": 600 },
+      { "name": "Formation joueurs", "price": 400 }
+    ]
+  }
+]
