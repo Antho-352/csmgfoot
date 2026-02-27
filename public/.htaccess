@@ -3,21 +3,22 @@ Options -Indexes
 RewriteEngine On
 
 # ── CORRIGER LE QUIRK cPanel : /index.php → / ────────────────────────────────
-# cPanel tente de servir index.php comme DirectoryIndex — on le redirige vers /
 RewriteCond %{THE_REQUEST} \s/(.*)index\.php[\s?]
 RewriteRule ^ /%1 [R=301,L]
 
 # ── PROTÉGER WORDPRESS (/blog) ────────────────────────────────────────────────
 RewriteRule ^blog(/.*)?$ - [L]
 
-# ── SERVIR LES FICHIERS STATIQUES DIRECTEMENT ────────────────────────────────
-# _astro/, favicon.ico, robots.txt, sitemap.xml, og-default.jpg, etc.
+# ── SI UN DOSSIER CONTIENT UN index.html → LE SERVIR DIRECTEMENT ─────────────
+# Ex: / → index.html, /communication/ → communication/index.html
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.*[^/])?/?$ %{REQUEST_FILENAME}/index.html [L]
+
+# ── FICHIERS STATIQUES SERVIS DIRECTEMENT ────────────────────────────────────
+# (_astro/, favicon.ico, robots.txt, sitemap.xml, etc.)
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# ── TOUT LE RESTE → PROXY VERS NODE.JS (port 3862) ───────────────────────────
-# / → homepage Astro SSR
-# /blog → liste des articles (WP temps réel)
-# /blog/mon-article → article SSR
-# /communication → page communication
+# ── TOUT LE RESTE → PROXY VERS NODE.JS (routes SSR: /blog/, /blog/slug) ──────
 RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]

@@ -1,240 +1,451 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import pricing from '../data/pricing.json';
+import PageLayout from "../layouts/PageLayout.astro";
+import pricingData from "../data/pricing.json";
 
 const seo = {
-  title: 'Simulateur de devis | CSMG Foot',
-  description: "Simulez votre devis en 3 étapes pour les services CSMG Foot. Estimation personnalisée, envoi par email, sans engagement.",
-  image: '/og-default.jpg',
+  title: "Simulateur de devis | CSMG Foot",
+  description:
+    "Simulez votre devis en 3 étapes pour les services CSMG Foot. Estimation personnalisée, envoi par email, sans engagement.",
+  image: "/og-default.jpg",
   jsonLd: {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Simulateur de devis",
-    "provider": {
+    name: "Simulateur de devis",
+    provider: {
       "@type": "Organization",
-      "name": "CSMG Foot"
+      name: "CSMG Foot",
     },
-    "areaServed": "France entière"
-  }
+    areaServed: "France entière",
+  },
 };
+
+// On passe les données de prix au client via un data-attribute
 ---
 
 <PageLayout {...seo}>
   <section class="section-padding bg-brand-black text-white">
     <div class="container-custom max-w-2xl mx-auto">
-      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Simulateur de devis</h1>
-      <p class="text-lg mb-8">Simulez votre devis en 3 étapes pour les services CSMG Foot. Estimation personnalisée, envoi par email, sans engagement.</p>
+      <h1
+        class="font-heading mb-6"
+        style="font-size: clamp(2.5rem, 5vw, 4rem);"
+      >
+        Simulateur de devis
+      </h1>
+      <p class="text-lg mb-8">
+        Simulez votre devis en 3 étapes pour les services CSMG Foot. Estimation
+        personnalisée, envoi par email, sans engagement.
+      </p>
     </div>
   </section>
 
   <section class="section-padding bg-white">
     <div class="container-custom max-w-2xl mx-auto">
       <!-- Simulateur multi-étapes -->
-      <div id="devis-simulator" class="bg-white rounded-2xl shadow-xl p-8">
+      <div
+        id="devis-simulator"
+        class="bg-white rounded-2xl shadow-xl p-8"
+        data-pricing={JSON.stringify(pricingData)}
+      >
         <!-- Barre de progression -->
         <div class="flex items-center mb-8">
           <div class="flex-1 h-2 rounded-full bg-gray-200 mr-2">
-            <div id="progress-bar" class="h-2 rounded-full bg-brand-green transition-all duration-300 w-1/3"></div>
+            <div
+              id="progress-bar"
+              class="h-2 rounded-full bg-brand-green transition-all duration-300 w-1/3"
+            >
+            </div>
           </div>
-          <span id="progress-label" class="text-sm text-brand-green font-semibold">Étape 1/3</span>
+          <span
+            id="progress-label"
+            class="text-sm text-brand-green font-semibold">Étape 1/3</span
+          >
         </div>
 
         <!-- Étapes -->
-        <form id="devis-form" class="space-y-8">
-          <!-- Étape 1: Structure -->
-          <div class="step step-1">
-            <h2 class="font-heading text-lg mb-4">Votre structure</h2>
-            <div class="space-y-4">
-              <label class="block">
-                <input type="radio" name="structure" value="Club amateur (moins de 100 licenciés)" required /> Club amateur (moins de 100 licenciés)
-              </label>
-              <label class="block">
-                <input type="radio" name="structure" value="Club amateur (100 à 500 licenciés)" /> Club amateur (100 à 500 licenciés)
-              </label>
-              <label class="block">
-                <input type="radio" name="structure" value="Club semi-professionnel" /> Club semi-professionnel
-              </label>
-              <label class="block">
-                <input type="radio" name="structure" value="Association sportive" /> Association sportive
-              </label>
-              <label class="block">
-                <input type="radio" name="structure" value="Entreprise partenaire / sponsor" /> Entreprise partenaire / sponsor
-              </label>
-            </div>
-          </div>
-
-          <!-- Étape 2: Besoins -->
-          <div class="step step-2 hidden">
-            <h2 class="font-heading text-lg mb-4">Vos besoins</h2>
-            <div class="space-y-4">
-              <label class="block font-semibold">Communication</label>
-              <div class="ml-4 space-y-2">
-                <label><input type="checkbox" name="besoins" value="Identité visuelle" /> Identité visuelle</label>
-                <label><input type="checkbox" name="besoins" value="Site web" /> Site web</label>
-                <label><input type="checkbox" name="besoins" value="Réseaux sociaux" /> Réseaux sociaux</label>
-                <label><input type="checkbox" name="besoins" value="Pack communication complet" /> Pack communication complet</label>
-              </div>
-              <label class="block font-semibold mt-4">Recrutement</label>
-              <div class="ml-4 space-y-2">
-                <label><input type="checkbox" name="besoins" value="Recherche ponctuelle" /> Recherche ponctuelle</label>
-                <label><input type="checkbox" name="besoins" value="Accompagnement transfert" /> Accompagnement transfert</label>
-                <label><input type="checkbox" name="besoins" value="Partenariat saison" /> Partenariat saison</label>
-              </div>
-              <label class="block font-semibold mt-4">Formation</label>
-              <div class="ml-4 space-y-2">
-                <label><input type="checkbox" name="besoins" value="Stage 1 jour" /> Stage 1 jour</label>
-                <label><input type="checkbox" name="besoins" value="Programme 5 sessions" /> Programme 5 sessions</label>
-                <label><input type="checkbox" name="besoins" value="Formation annuelle staff" /> Formation annuelle staff</label>
+        <div id="devis-form-container">
+          <form id="devis-form" class="space-y-8">
+            <!-- Étape 1: Structure -->
+            <div class="step step-1">
+              <h2 class="font-heading text-lg mb-4">Votre structure</h2>
+              <div class="space-y-4">
+                <label class="block cursor-pointer"
+                  ><input
+                    type="radio"
+                    name="structure"
+                    value="Club amateur (moins de 100 licenciés)"
+                    required
+                  /> Club amateur (< 100 licenciés)</label
+                >
+                <label class="block cursor-pointer"
+                  ><input
+                    type="radio"
+                    name="structure"
+                    value="Club amateur (100 à 500 licenciés)"
+                  /> Club amateur (100-500 licenciés)</label
+                >
+                <label class="block cursor-pointer"
+                  ><input
+                    type="radio"
+                    name="structure"
+                    value="Club semi-professionnel"
+                  /> Club semi-professionnel</label
+                >
+                <label class="block cursor-pointer"
+                  ><input
+                    type="radio"
+                    name="structure"
+                    value="Association sportive"
+                  /> Association sportive</label
+                >
+                <label class="block cursor-pointer"
+                  ><input
+                    type="radio"
+                    name="structure"
+                    value="Entreprise partenaire / sponsor"
+                  /> Entreprise partenaire / sponsor</label
+                >
               </div>
             </div>
-          </div>
 
-          <!-- Étape 3: Périmètre -->
-          <div class="step step-3 hidden">
-            <h2 class="font-heading text-lg mb-4">Périmètre</h2>
-            <div class="space-y-4">
-              <label class="block">Durée</label>
-              <div class="ml-4 space-y-2">
-                <label><input type="radio" name="duree" value="Mission ponctuelle" required /> Mission ponctuelle</label>
-                <label><input type="radio" name="duree" value="3 à 6 mois" /> 3 à 6 mois</label>
-                <label><input type="radio" name="duree" value="1 an et plus" /> 1 an et plus</label>
-              </div>
-              <label class="block mt-4">Budget indicatif</label>
-              <div class="ml-4 space-y-2">
-                <label><input type="radio" name="budget" value="Moins de 1 000€" required /> Moins de 1 000€</label>
-                <label><input type="radio" name="budget" value="1 000€ — 5 000€" /> 1 000€ — 5 000€</label>
-                <label><input type="radio" name="budget" value="5 000€ — 15 000€" /> 5 000€ — 15 000€</label>
-                <label><input type="radio" name="budget" value="Plus de 15 000€" /> Plus de 15 000€</label>
-                <label><input type="radio" name="budget" value="Je ne sais pas encore" /> Je ne sais pas encore</label>
+            <!-- Étape 2: Besoins -->
+            <div class="step step-2 hidden">
+              <h2 class="font-heading text-lg mb-4">Vos besoins</h2>
+              <div class="space-y-4">
+                <label class="block font-semibold">Communication</label>
+                <div class="ml-4 space-y-2">
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Identité visuelle"
+                    /> Identité visuelle</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input type="checkbox" name="besoins" value="Site web" /> Site
+                    web</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Réseaux sociaux"
+                    /> Réseaux sociaux</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Pack communication complet"
+                    /> Pack communication complet</label
+                  >
+                </div>
+                <label class="block font-semibold mt-4">Recrutement</label>
+                <div class="ml-4 space-y-2">
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Recherche ponctuelle"
+                    /> Recherche ponctuelle</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Accompagnement transfert"
+                    /> Accompagnement transfert</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Partenariat saison"
+                    /> Partenariat saison</label
+                  >
+                </div>
+                <label class="block font-semibold mt-4">Formation</label>
+                <div class="ml-4 space-y-2">
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Stage formation (1 journée)"
+                    /> Stage 1 jour</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Programme staff technique (5 sessions)"
+                    /> Programme 5 sessions</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="checkbox"
+                      name="besoins"
+                      value="Formation annuelle staff"
+                    /> Formation annuelle staff</label
+                  >
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Résultat -->
-          <div class="step step-result hidden">
-            <h2 class="font-heading text-lg mb-4">Votre estimation</h2>
-            <div id="devis-recap" class="mb-6 text-gray-700"></div>
-            <div class="mb-6 text-brand-green font-semibold" id="devis-pricing"></div>
-            <p class="text-sm text-gray-500 mb-6">Ce devis est une estimation indicative. Contactez-nous pour un devis personnalisé.</p>
-            <!-- Formulaire Web3Forms -->
-            <form id="web3forms" action="https://web3forms.com/submit" method="POST" class="space-y-4">
-              <input type="hidden" name="access_key" value={import.meta.env.VITE_WEB3FORMS_KEY} />
-              <input type="hidden" name="devis_recap" id="hidden-recap" />
-              <label>Prénom* <input type="text" name="prenom" required class="w-full border rounded-md p-2" /></label>
-              <label>Nom* <input type="text" name="nom" required class="w-full border rounded-md p-2" /></label>
-              <label>Email* <input type="email" name="email" required class="w-full border rounded-md p-2" /></label>
-              <label>Téléphone <input type="text" name="telephone" class="w-full border rounded-md p-2" /></label>
-              <label>Club/Structure* <input type="text" name="club" required class="w-full border rounded-md p-2" /></label>
-              <label class="flex items-center gap-2">
-                <input type="checkbox" name="rgpd" required /> J'accepte la politique de confidentialité
-              </label>
-              <button type="submit" class="btn-primary w-full">Recevoir mon devis détaillé par email</button>
-              <div id="web3forms-success" class="hidden text-green-600 font-semibold mt-4">Votre demande a bien été envoyée !</div>
-            </form>
-          </div>
+            <!-- Étape 3: Périmètre -->
+            <div class="step step-3 hidden">
+              <h2 class="font-heading text-lg mb-4">Périmètre</h2>
+              <div class="space-y-4">
+                <label class="block font-semibold">Durée souhaitée</label>
+                <div class="ml-4 space-y-2">
+                  <label class="block cursor-pointer"
+                    ><input
+                      type="radio"
+                      name="duree"
+                      value="Mission ponctuelle"
+                      required
+                    /> Mission ponctuelle</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input type="radio" name="duree" value="3 à 6 mois" /> 3 à 6
+                    mois</label
+                  >
+                  <label class="block cursor-pointer"
+                    ><input type="radio" name="duree" value="1 an et plus" /> 1 an
+                    et plus</label
+                  >
+                </div>
+              </div>
+            </div>
 
-          <!-- Navigation boutons -->
-          <div class="flex justify-between mt-8">
-            <button type="button" id="prev-btn" class="btn-secondary" disabled>Précédent</button>
-            <button type="button" id="next-btn" class="btn-primary">Suivant</button>
-          </div>
-        </form>
+            <!-- Résultat Final -->
+            <div class="step step-result hidden">
+              <div
+                class="bg-brand-green/5 p-6 rounded-xl border border-brand-green/20 mb-8"
+              >
+                <h2 class="font-heading text-xl mb-4 text-brand-black">
+                  Estimation indicative
+                </h2>
+                <div
+                  id="devis-recap"
+                  class="mb-4 text-gray-700 space-y-1 text-sm"
+                >
+                </div>
+                <div
+                  class="text-2xl font-bold text-brand-green"
+                  id="devis-pricing"
+                >
+                </div>
+                <p class="text-xs text-gray-500 mt-4 italic">
+                  Cette estimation est fournie à titre indicatif et ne constitue
+                  pas un engagement contractuel.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <h3 class="font-heading text-lg">
+                  Recevoir ce devis par email
+                </h3>
+                <div id="web3forms-target">
+                  <!-- On injectera le formulaire Web3Forms ici pour éviter les imbrications complexes -->
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-between mt-8 border-t pt-8">
+              <button
+                type="button"
+                id="prev-btn"
+                class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 hover:bg-gray-50 transition-all font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                >Précédent</button
+              >
+              <button
+                type="button"
+                id="next-btn"
+                class="px-8 py-2 rounded-full bg-brand-green text-white hover:bg-brand-green/90 transition-all font-bold shadow-lg shadow-brand-green/20"
+                >Suivant</button
+              >
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </section>
 
-  <script>
-    // Simulateur multi-étapes
-    const steps = [
-      document.querySelector('.step-1'),
-      document.querySelector('.step-2'),
-      document.querySelector('.step-3'),
-      document.querySelector('.step-result'),
-    ];
-    let currentStep = 0;
+  <!-- Template Web3Forms caché -->
+  <template id="web3forms-template">
+    <form action="https://web3forms.com/submit" method="POST" class="space-y-4">
+      <input
+        type="hidden"
+        name="access_key"
+        value={import.meta.env.VITE_WEB3FORMS_KEY}
+      />
+      <input
+        type="hidden"
+        name="subject"
+        value="Nouvelle simulation de devis - CSMG Foot"
+      />
+      <input type="hidden" name="from_name" value="Simulateur CSMG Foot" />
+      <input type="hidden" name="devis_details" id="hidden-recap" />
+      <input type="hidden" name="estimation" id="hidden-price" />
 
-    const progressBar = document.getElementById('progress-bar');
-    const progressLabel = document.getElementById('progress-label');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtn = document.getElementById('next-btn');
-    const devisForm = document.getElementById('devis-form');
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1">Prénom*</label>
+          <input
+            type="text"
+            name="first_name"
+            required
+            class="w-full border border-gray-200 rounded-lg p-3 focus:ring-2 focus:ring-brand-green/20 outline-none"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold mb-1">Nom*</label>
+          <input
+            type="text"
+            name="last_name"
+            required
+            class="w-full border border-gray-200 rounded-lg p-3 focus:ring-2 focus:ring-brand-green/20 outline-none"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Email*</label>
+        <input
+          type="email"
+          name="email"
+          required
+          class="w-full border border-gray-200 rounded-lg p-3 focus:ring-2 focus:ring-brand-green/20 outline-none"
+        />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1">Club / Structure*</label
+        >
+        <input
+          type="text"
+          name="organization"
+          required
+          class="w-full border border-gray-200 rounded-lg p-3 focus:ring-2 focus:ring-brand-green/20 outline-none"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="w-full py-4 bg-brand-black text-white rounded-lg font-bold hover:bg-brand-black/90 transition-all"
+        >Envoyer ma demande</button
+      >
+    </form>
+  </template>
+
+  <script>
+    const simulator = document.getElementById("devis-simulator");
+    const pricingData = JSON.parse(simulator.dataset.pricing);
+
+    const steps = document.querySelectorAll(".step");
+    const progressBar = document.getElementById("progress-bar");
+    const progressLabel = document.getElementById("progress-label");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const devisForm = document.getElementById("devis-form") as HTMLFormElement;
+
+    let currentStep = 0;
 
     function showStep(index) {
       steps.forEach((step, i) => {
-        if (step) step.classList.toggle('hidden', i !== index);
+        step.classList.toggle("hidden", i !== index);
       });
-      progressBar.style.width = `${((index + 1) / steps.length) * 100}%`;
-      progressLabel.textContent = index < 3 ? `Étape ${index + 1}/3` : 'Résultat';
+
+      const progress = ((index + 1) / steps.length) * 100;
+      progressBar.style.width = `${progress}%`;
+      progressLabel.textContent =
+        index < 3 ? `Étape ${index + 1}/3` : "Estimation finale";
+
       prevBtn.disabled = index === 0;
-      nextBtn.textContent = index < 3 ? 'Suivant' : 'Terminer';
-    }
-    showStep(currentStep);
 
-    nextBtn.addEventListener('click', () => {
-      if (currentStep < 3) {
-        // Validation
-        const stepInputs = steps[currentStep].querySelectorAll('input:required');
-        let valid = true;
-        stepInputs.forEach((input) => {
-          if (!input.checked && !input.value) valid = false;
-        });
-        if (!valid) {
-          steps[currentStep].scrollIntoView({ behavior: 'smooth' });
-          return;
-        }
-        currentStep++;
-        showStep(currentStep);
+      if (index === 3) {
+        nextBtn.classList.add("hidden");
+        updateFinalRecap();
       } else {
-        // Afficher le résultat
-        showStep(currentStep);
-        updateRecap();
+        nextBtn.classList.remove("hidden");
+        nextBtn.textContent = index === 2 ? "Voir l'estimation" : "Suivant";
       }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentStep > 0) {
-        currentStep--;
-        showStep(currentStep);
-      }
-    });
-
-    function updateRecap() {
-      // Récupérer les valeurs
-      const structure = devisForm.querySelector('input[name="structure"]:checked')?.value || '';
-      const besoins = Array.from(devisForm.querySelectorAll('input[name="besoins"]:checked')).map((el) => el.value);
-      const duree = devisForm.querySelector('input[name="duree"]:checked')?.value || '';
-      const budget = devisForm.querySelector('input[name="budget"]:checked')?.value || '';
-
-      // Calculer la fourchette de prix
-      let min = 0, max = 0;
-      besoins.forEach((besoin) => {
-        if (pricing.communication && pricing.communication[besoin.toLowerCase().replace(/ /g, '_')]) {
-          min += pricing.communication[besoin.toLowerCase().replace(/ /g, '_')].min;
-          max += pricing.communication[besoin.toLowerCase().replace(/ /g, '_')].max;
-        }
-        if (pricing.recrutement && pricing.recrutement[besoin.toLowerCase().replace(/ /g, '_')]) {
-          min += pricing.recrutement[besoin.toLowerCase().replace(/ /g, '_')].min;
-          max += pricing.recrutement[besoin.toLowerCase().replace(/ /g, '_')].max;
-        }
-        if (pricing.formation && pricing.formation[besoin.toLowerCase().replace(/ /g, '_')]) {
-          min += pricing.formation[besoin.toLowerCase().replace(/ /g, '_')].min;
-          max += pricing.formation[besoin.toLowerCase().replace(/ /g, '_')].max;
-        }
-      });
-      const recap = `Structure : ${structure}<br>Besoins : ${besoins.join(', ')}<br>Durée : ${duree}<br>Budget : ${budget}`;
-      document.getElementById('devis-recap').innerHTML = recap;
-      document.getElementById('devis-pricing').textContent = min && max ? `Fourchette indicative : ${min}€ - ${max}€` : '';
-      document.getElementById('hidden-recap').value = recap + `\nFourchette indicative : ${min}€ - ${max}€`;
     }
 
-    // Web3Forms : afficher succès
-    const web3forms = document.getElementById('web3forms');
-    web3forms?.addEventListener('submit', function (e) {
-      e.preventDefault();
-      // Simuler envoi
-      setTimeout(() => {
-        document.getElementById('web3forms-success').classList.remove('hidden');
-      }, 1000);
+    nextBtn.addEventListener("click", () => {
+      // Simple validation for current step
+      const currentStepEl = steps[currentStep];
+      const inputs = currentStepEl.querySelectorAll("input:required");
+      let valid = true;
+
+      if (inputs.length > 0) {
+        const checked = currentStepEl.querySelector("input:checked");
+        if (!checked) valid = false;
+      }
+
+      if (!valid) {
+        alert("Veuillez remplir les informations obligatoires.");
+        return;
+      }
+
+      currentStep++;
+      showStep(currentStep);
     });
+
+    prevBtn.addEventListener("click", () => {
+      currentStep--;
+      showStep(currentStep);
+    });
+
+    function updateFinalRecap() {
+      const formData = new FormData(devisForm);
+      const structure = formData.get("structure");
+      const besoins = formData.getAll("besoins");
+      const duree = formData.get("duree");
+
+      let totalPrice = 0;
+
+      // Chercher les prix dans pricingData
+      besoins.forEach((besoinName) => {
+        pricingData.forEach((cat) => {
+          const service = cat.services.find((s) => s.name === besoinName);
+          if (service) {
+            totalPrice += service.price;
+          }
+        });
+      });
+
+      const recapEl = document.getElementById("devis-recap");
+      recapEl.innerHTML = `
+        <p><strong>Structure :</strong> ${structure}</p>
+        <p><strong>Besoins :</strong> ${besoins.join(", ")}</p>
+        <p><strong>Durée :</strong> ${duree}</p>
+      `;
+
+      const priceEl = document.getElementById("devis-pricing");
+      priceEl.textContent = `À partir de ${totalPrice}€ HT`;
+
+      // Injection Web3Forms
+      const target = document.getElementById("web3forms-target");
+      const template = document.getElementById(
+        "web3forms-template"
+      ) as HTMLTemplateElement;
+
+      if (target.children.length === 0) {
+        const clone = template.content.cloneNode(true) as HTMLElement;
+        const hiddenRecap = clone.querySelector(
+          "#hidden-recap"
+        ) as HTMLInputElement;
+        const hiddenPrice = clone.querySelector(
+          "#hidden-price"
+        ) as HTMLInputElement;
+
+        hiddenRecap.value = `Structure: ${structure} | Besoins: ${besoins.join(
+          ", "
+        )} | Durée: ${duree}`;
+        hiddenPrice.value = `${totalPrice}€ HT`;
+
+        target.appendChild(clone);
+      }
+    }
   </script>
 </PageLayout>

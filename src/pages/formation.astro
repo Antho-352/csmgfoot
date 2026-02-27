@@ -1,6 +1,12 @@
----
 import PageLayout from '../layouts/PageLayout.astro';
-import pricing from '../data/pricing.json';
+import pricingData from '../data/pricing.json';
+
+const formationPricing = (pricingData as any[]).find(p => p.type === 'formation')?.services || [];
+const pricingMap: Record<string, any> = {
+  stage_1j: formationPricing.find((s: any) => s.name === 'Stage formation (1 journée)'),
+  programme_5sessions: formationPricing.find((s: any) => s.name === 'Programme staff technique (5 sessions)'),
+  formation_annuelle: formationPricing.find((s: any) => s.name === 'Formation annuelle staff'),
+};
 
 const seo = {
   title: 'Formation | CSMG Foot',
@@ -63,7 +69,7 @@ const programmes = [
             <h3 class="font-heading text-lg mb-2">{p.title}</h3>
             <p class="text-gray-600 mb-4">{p.description}</p>
             <div class="text-brand-green font-semibold">
-              {(pricing as any).formation && (pricing as any).formation[p.key] ? `${(pricing as any).formation[p.key].min}€ - ${(pricing as any).formation[p.key].max}€` : ''}
+              {pricingMap[p.key] ? `${pricingMap[p.key].price}€` : ''}
             </div>
           </div>
         ))}

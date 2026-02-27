@@ -1,6 +1,12 @@
----
 import PageLayout from '../layouts/PageLayout.astro';
-import pricing from '../data/pricing.json';
+import pricingData from '../data/pricing.json';
+
+const recrutementPricing = (pricingData as any[]).find(p => p.type === 'recrutement')?.services || [];
+const pricingMap: Record<string, any> = {
+  recherche_ponctuelle: recrutementPricing.find((s: any) => s.name === "Recherche ponctuelle"),
+  transfert_complet: recrutementPricing.find((s: any) => s.name === "Accompagnement transfert"),
+  partenariat_saison: recrutementPricing.find((s: any) => s.name === "Partenariat saison"),
+};
 
 const seo = {
   title: 'Recrutement | CSMG Foot',
@@ -63,7 +69,7 @@ const prestations = [
             <h3 class="font-heading text-lg mb-2">{p.title}</h3>
             <p class="text-gray-600 mb-4">{p.description}</p>
             <div class="text-brand-green font-semibold">
-              {(pricing as any).recrutement && (pricing as any).recrutement[p.key] ? `${(pricing as any).recrutement[p.key].min}€ - ${(pricing as any).recrutement[p.key].max}€` : ''}
+              {pricingMap[p.key] ? `${pricingMap[p.key].price}€` : ''}
             </div>
           </div>
         ))}
