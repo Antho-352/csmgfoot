@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Projet A",
+    "description": "Création d'un site web pour un club amateur.",
+    "image": "/images/realisations/projet-a.jpg"
+  },
+  {
+    "title": "Projet B",
+    "description": "Refonte de l'identité visuelle d'une association sportive.",
+    "image": "/images/realisations/projet-b.jpg"
+  },
+  {
+    "title": "Projet C",
+    "description": "Accompagnement recrutement pour un club semi-professionnel.",
+    "image": "/images/realisations/projet-c.jpg"
+  }
+]
