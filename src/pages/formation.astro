@@ -27,21 +27,39 @@ const seo = {
 const programmes = [
   {
     key: 'stage_1j',
-    title: 'Stage formation (1 journée)',
-    description: 'Formation intensive sur une journée',
-    icon: 'calendar',
+    title: 'Stage formation — 1 journée',
+    description: 'Une journée intensive pour traiter un sujet précis : analyse vidéo, préparation mentale, tactique, leadership... Le format idéal pour une mise à niveau rapide ou un déclencheur de changement au sein de votre staff.',
+    icon: '📅',
+    details: [
+      { label: 'Durée', value: '1 journée (6h)' },
+      { label: 'Public', value: 'Staff technique, entraîneurs, dirigeants' },
+      { label: 'Format', value: 'Présentiel ou distanciel' },
+      { label: 'Tarif', value: '400 € — 900 € HT' },
+    ],
   },
   {
     key: 'programme_5sessions',
-    title: 'Programme staff technique (5 sessions)',
-    description: 'Formation tactique moderne, UEFA',
-    icon: 'book',
+    title: 'Programme staff technique — 5 sessions',
+    description: 'Un parcours structuré sur plusieurs semaines pour monter en compétences sur les méthodes modernes d'entraînement. Chaque session aborde un axe précis avec des exercices pratiques applicables immédiatement.',
+    icon: '📘',
+    details: [
+      { label: 'Durée', value: '5 sessions (espacement défini ensemble)' },
+      { label: 'Public', value: 'Staff technique, coachs, préparateurs physiques' },
+      { label: 'Format', value: 'Hybride' },
+      { label: 'Tarif', value: '1 500 € — 3 500 € HT' },
+    ],
   },
   {
     key: 'formation_annuelle',
     title: 'Formation annuelle staff',
-    description: 'Accompagnement annuel, coaching, data',
-    icon: 'graduation',
+    description: 'L\'accompagnement complet sur toute la saison. Interventions calées sur votre calendrier, suivi mensuel, ajustements en cours de saison, bilan de fin d\'exercice. Le format le plus efficace pour une transformation durable.',
+    icon: '🎓',
+    details: [
+      { label: 'Durée', value: '1 saison sportive' },
+      { label: 'Public', value: 'Staff complet — technique, administratif, dirigeants' },
+      { label: 'Format', value: 'Hybride' },
+      { label: 'Tarif', value: '2 500 € — 6 000 € HT' },
+    ],
   },
 ];
 ---
@@ -50,27 +68,31 @@ const programmes = [
   <section class="section-padding bg-brand-black text-white">
     <div class="container-custom">
       <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Formation</h1>
-      <p class="text-lg mb-8">Formation staff technique, préparation mentale, management — CSMG accompagne les clubs de football français dans leur développement.</p>
+      <p class="text-lg mb-8">Vos joueurs et votre staff ont le niveau pour aller plus haut. CSMG conçoit des programmes de formation adaptés à la réalité du football amateur et semi-professionnel français — du stage ponctuel à l'accompagnement annuel.</p>
     </div>
   </section>
 
   <section class="section-padding bg-white">
     <div class="container-custom">
-      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Programmes</h2>
+      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Nos programmes</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {programmes.map((p) => (
-          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up">
+          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up flex flex-col">
             <div class="mb-4">
-              <!-- Icon placeholder -->
               <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
-                <span class="text-brand-green text-2xl">{p.icon}</span>
+                <span class="text-2xl">{p.icon}</span>
               </div>
             </div>
             <h3 class="font-heading text-lg mb-2">{p.title}</h3>
-            <p class="text-gray-600 mb-4">{p.description}</p>
-            <div class="text-brand-green font-semibold">
-              {pricingMap[p.key] ? `${pricingMap[p.key].price}€` : ''}
-            </div>
+            <p class="text-gray-600 mb-4 text-sm flex-1">{p.description}</p>
+            <ul class="space-y-1 mb-4">
+              {p.details.map((d) => (
+                <li class="text-sm text-gray-700 flex gap-2">
+                  <span class="font-semibold text-brand-black min-w-[60px]">{d.label} :</span>
+                  <span>{d.value}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
@@ -79,23 +101,25 @@ const programmes = [
 
   <section class="section-padding bg-gray-50">
     <div class="container-custom">
-      <h2 class="font-heading text-brand-black mb-6">Formats</h2>
+      <h2 class="font-heading text-brand-black mb-6">Comment ça se passe ?</h2>
       <div class="flex flex-col md:flex-row gap-8">
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Présentiel</h3>
-          <p class="text-gray-600">Sessions en présentiel dans votre club ou région.</p>
+          <p class="text-gray-600">Nous nous déplaçons dans votre club. Le présentiel favorise la cohésion du groupe et les mises en situation pratiques.</p>
         </div>
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Distanciel</h3>
-          <p class="text-gray-600">Formations en ligne, coaching vidéo, suivi digital.</p>
+          <p class="text-gray-600">Sessions en visioconférence, supports partagés, coaching vidéo asynchrone. Idéal pour les clubs éloignés ou les emplois du temps chargés.</p>
         </div>
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Hybride</h3>
-          <p class="text-gray-600">Mix présentiel/distanciel selon vos besoins.</p>
+          <p class="text-gray-600">La combinaison des deux selon la nature des sujets. Lancement en présentiel, suivi et approfondissement en distanciel.</p>
         </div>
       </div>
-      <div class="mt-12 text-center">
-        <a href="/devis" class="btn-primary inline-block">Demander un devis</a>
+      <div class="mt-12 bg-brand-black rounded-2xl p-8 text-center">
+        <h3 class="font-heading text-white mb-3" style="font-size: clamp(1.3rem, 2.5vw, 1.8rem);">Vous ne savez pas quel programme choisir ?</h3>
+        <p class="text-gray-300 mb-6">Décrivez-nous votre situation en 2 minutes via le simulateur de devis — nous vous orientons vers la formule adaptée à votre club.</p>
+        <a href="/devis" class="btn-primary inline-block">Simuler mon devis →</a>
       </div>
     </div>
   </section>

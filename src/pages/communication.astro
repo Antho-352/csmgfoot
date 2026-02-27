@@ -1,57 +1,97 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import pricingData from '../data/pricing.json';
+import PageLayout from "../layouts/PageLayout.astro";
+import pricingData from "../data/pricing.json";
 
 // pricing.json est un tableau [{type, services:[{name, price}]}]
 // On construit un map clé → prix pour la section communication
-const commServices = (pricingData as any[]).find(p => p.type === 'communication')?.services || [];
+const commServices =
+  (pricingData as any[]).find((p) => p.type === "communication")?.services ||
+  [];
 const pricingMap: Record<string, number> = {
-  identite_visuelle: commServices.find((s: any) => s.name === 'Identité visuelle')?.price,
-  site_web:          commServices.find((s: any) => s.name === 'Site web')?.price,
-  reseaux_sociaux:   commServices.find((s: any) => s.name === 'Réseaux sociaux')?.price,
-  pack_complet:      commServices.find((s: any) => s.name === 'Pack communication complet')?.price,
+  identite_visuelle: commServices.find(
+    (s: any) => s.name === "Identité visuelle"
+  )?.price,
+  site_web: commServices.find((s: any) => s.name === "Site web")?.price,
+  reseaux_sociaux: commServices.find((s: any) => s.name === "Réseaux sociaux")
+    ?.price,
+  pack_complet: commServices.find(
+    (s: any) => s.name === "Pack communication complet"
+  )?.price,
 };
 
 const seo = {
-  title: 'Communication | CSMG Foot',
-  description: "Identité visuelle, site web, réseaux sociaux, contenu — CSMG accompagne les clubs de football français dans leur communication.",
-  image: '/og-default.jpg',
+  title: "Communication | CSMG Foot",
+  description:
+    "Identité visuelle, site web, réseaux sociaux, contenu — CSMG accompagne les clubs de football français dans leur communication.",
+  image: "/og-default.jpg",
   jsonLd: {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Communication",
-    "provider": {
+    name: "Communication",
+    provider: {
       "@type": "Organization",
-      "name": "CSMG Foot"
+      name: "CSMG Foot",
     },
-    "areaServed": "France entière"
-  }
+    areaServed: "France entière",
+  },
 };
 
 const prestations = [
   {
-    key: 'identite_visuelle',
-    title: 'Identité visuelle',
-    description: 'Logo, charte graphique, maillots',
-    icon: 'palette',
+    key: "identite_visuelle",
+    title: "Identité visuelle",
+    description:
+      "Logo, charte graphique, déclinaisons print et digital. Nous créons une identité cohérente qui reflète les valeurs de votre club et qui donne envie de rejoindre l'aventure — supporters, licenciés, sponsors.",
+    icon: "🎨",
+    details: [
+      {
+        label: "Livrables",
+        value:
+          "Logo principal + variantes, charte couleurs et typo, fichiers sources",
+      },
+      { label: "Tarif", value: "800 € — 2 500 € HT" },
+    ],
   },
   {
-    key: 'site_web',
-    title: 'Création site web club',
-    description: 'Site vitrine moderne, adapté mobile',
-    icon: 'monitor',
+    key: "site_web",
+    title: "Création site web club",
+    description:
+      "Un site moderne, rapide, optimisé mobile et référencé sur Google. Actualités, résultats, billetterie, recrutement — tout ce dont un club a besoin pour exister en ligne et communiquer avec ses supporters.",
+    icon: "🖥️",
+    details: [
+      {
+        label: "Livrables",
+        value:
+          "Site complet responsive, formation à la prise en main, hébergement conseillé",
+      },
+      { label: "Tarif", value: "1 200 € — 4 000 € HT" },
+    ],
   },
   {
-    key: 'reseaux_sociaux',
-    title: 'Gestion réseaux sociaux',
-    description: 'Facebook, Instagram, TikTok',
-    icon: 'share',
+    key: "reseaux_sociaux",
+    title: "Gestion réseaux sociaux",
+    description:
+      "Stratégie de contenu, création de visuels, publication régulière, animation de communauté. Nous gérons vos comptes Facebook, Instagram et TikTok pour que votre club soit présent, actif et engageant — même quand vous n'avez pas le temps.",
+    icon: "📱",
+    details: [
+      { label: "Durée", value: "Engagement 3 mois minimum" },
+      { label: "Plateformes", value: "Facebook, Instagram, TikTok" },
+      { label: "Tarif", value: "600 € — 1 800 € HT / 3 mois" },
+    ],
   },
   {
-    key: 'pack_complet',
-    title: 'Pack communication complet',
-    description: 'Accompagnement annuel, tous supports',
-    icon: 'star',
+    key: "pack_complet",
+    title: "Pack communication annuel",
+    description:
+      "La solution complète. Identité visuelle, site web et réseaux sociaux pris en charge sur toute la saison. Un interlocuteur unique, une communication cohérente de la reprise à la fin de saison.",
+    icon: "⭐",
+    details: [
+      {
+        label: "Inclus",
+        value: "Identité visuelle + site web + gestion réseaux sociaux 10 mois",
+      },
+      { label: "Tarif", value: "3 000 € — 8 000 € HT / saison" },
+    ],
   },
 ];
 ---
@@ -59,53 +99,99 @@ const prestations = [
 <PageLayout {...seo}>
   <section class="section-padding bg-brand-black text-white">
     <div class="container-custom">
-      <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Communication</h1>
-      <p class="text-lg mb-8">Identité visuelle, site web, réseaux sociaux, contenu — CSMG accompagne les clubs de football français dans leur communication.</p>
+      <h1
+        class="font-heading mb-6"
+        style="font-size: clamp(2.5rem, 5vw, 4rem);"
+      >
+        Communication
+      </h1>
+      <p class="text-lg mb-8">
+        Un club invisible est un club qui ne grandit pas. Site web, réseaux
+        sociaux, identité visuelle — CSMG prend en charge la communication de
+        votre club pour que vous vous concentriez sur ce qui compte : le
+        football.
+      </p>
     </div>
   </section>
 
   <section class="section-padding bg-white">
     <div class="container-custom">
-      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Prestations</h2>
+      <h2
+        class="font-heading text-brand-black mb-8"
+        style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);"
+      >
+        Nos prestations
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {prestations.map((p) => (
-          <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up">
-            <div class="mb-4">
-              <!-- Icon placeholder -->
-              <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
-                <span class="text-brand-green text-2xl">{p.icon}</span>
+        {
+          prestations.map((p) => (
+            <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 fade-in-up flex flex-col">
+              <div class="mb-4">
+                <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center">
+                  <span class="text-2xl">{p.icon}</span>
+                </div>
               </div>
+              <h3 class="font-heading text-lg mb-2">{p.title}</h3>
+              <p class="text-gray-600 mb-4 text-sm flex-1">{p.description}</p>
+              <ul class="space-y-1">
+                {p.details.map((d) => (
+                  <li class="text-sm text-gray-700 flex gap-2">
+                    <span class="font-semibold text-brand-black min-w-[70px]">
+                      {d.label} :
+                    </span>
+                    <span>{d.value}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 class="font-heading text-lg mb-2">{p.title}</h3>
-            <p class="text-gray-600 mb-4">{p.description}</p>
-            <div class="text-brand-green font-semibold">
-              {pricingMap[p.key] ? `À partir de ${pricingMap[p.key]}€` : ''}
-            </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
   <section class="section-padding bg-gray-50">
     <div class="container-custom">
-      <h2 class="font-heading text-brand-black mb-6">Notre méthode</h2>
+      <h2 class="font-heading text-brand-black mb-6">Comment on travaille</h2>
       <div class="flex flex-col md:flex-row gap-8">
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Audit</h3>
-          <p class="text-gray-600">Analyse de l'identité, des besoins et des objectifs du club.</p>
+          <p class="text-gray-600">
+            On commence par regarder ce qui existe : votre image actuelle, vos
+            supports, vos concurrents directs, vos objectifs. Aucune
+            préconisation sans diagnostic.
+          </p>
         </div>
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Stratégie</h3>
-          <p class="text-gray-600">Proposition de plan d'action sur-mesure, choix des supports et des messages.</p>
+          <p class="text-gray-600">
+            On vous soumet un plan de communication sur-mesure : quels supports,
+            quels messages, quelle fréquence, quel budget. Vous validez avant
+            qu'on commence.
+          </p>
         </div>
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Exécution</h3>
-          <p class="text-gray-600">Réalisation des supports, gestion des réseaux, suivi des résultats.</p>
+          <p class="text-gray-600">
+            On produit, on publie, on suit les résultats. Vous avez accès à un
+            reporting mensuel et un contact direct avec votre chargé de compte
+            CSMG.
+          </p>
         </div>
       </div>
-      <div class="mt-12 text-center">
-        <a href="/devis" class="btn-primary inline-block">Demander un devis</a>
+      <div class="mt-12 bg-brand-black rounded-2xl p-8 text-center">
+        <h3
+          class="font-heading text-white mb-3"
+          style="font-size: clamp(1.3rem, 2.5vw, 1.8rem);"
+        >
+          Votre club mérite mieux qu'une page Facebook à l'abandon.
+        </h3>
+        <p class="text-gray-300 mb-6">
+          Estimez le budget de votre projet communication en 2 minutes — sans
+          engagement.
+        </p>
+        <a href="/devis" class="btn-primary inline-block">Simuler mon devis →</a
+        >
       </div>
     </div>
   </section>

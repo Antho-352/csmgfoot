@@ -22,22 +22,36 @@ const seo = {
 };
 
 const valeurs = [
-  { title: 'Passion', description: 'Animés par le football, nous vivons chaque projet avec engagement.' },
-  { title: 'Innovation', description: 'Méthodes et outils digitaux pour des solutions modernes.' },
-  { title: 'Proximité', description: 'Relation directe, écoute et accompagnement sur-mesure.' },
-  { title: 'Résultats', description: 'Objectifs clairs, reporting transparent, suivi régulier.' },
+  { title: 'Passion', description: "Le football n'est pas juste notre secteur d'activité. C'est notre point de départ, notre filtre, notre moteur sur chaque projet." },
+  { title: 'Innovation', description: "On apporte au football amateur les méthodes et les outils qui étaient jusqu'ici réservés aux clubs professionnels." },
+  { title: 'Proximité', description: "Un interlocuteur direct, des réponses rapides, une vraie relation de travail. Pas un ticket de support, une vraie conversation." },
+  { title: 'Résultats', description: "Pas de promesses vagues. Des objectifs définis ensemble, des indicateurs clairs, un suivi transparent." },
 ];
 ---
 
 <PageLayout {...seo}>
+  <!-- HERO -->
   <section class="section-padding bg-brand-black text-white">
     <div class="container-custom">
       <h1 class="font-heading mb-6" style="font-size: clamp(2.5rem, 5vw, 4rem);">Une agence née du terrain</h1>
-      <p class="text-lg mb-8">CSMG Foot est née d'un constat simple : les clubs de football, quelle que soit leur taille, méritent un accompagnement professionnel pour se développer.</p>
+      <p class="text-lg mb-8">CSMG est née d'un constat simple : les clubs de football, quelle que soit leur taille, méritent un accompagnement professionnel pour se développer. On est là pour combler cet écart.</p>
     </div>
   </section>
 
+  <!-- NOTRE HISTOIRE -->
   <section class="section-padding bg-white">
+    <div class="container-custom max-w-3xl mx-auto">
+      <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Notre histoire</h2>
+      <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
+        <p>Fondée par des passionnés du football français ayant évolué dans le milieu professionnel et semi-professionnel, Creative Sport Media Group est une agence digitale-native dédiée aux structures footballistiques.</p>
+        <p>Notre conviction : un club bien accompagné communique mieux, recrute mieux, forme mieux. Et au final, il grandit — sur le terrain comme en dehors.</p>
+        <p>On ne travaille qu'avec des clubs, des associations et des entreprises du secteur football. Pas de dispersion, pas de généralisme. C'est notre force.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOS VALEURS -->
+  <section class="section-padding bg-gray-50">
     <div class="container-custom">
       <h2 class="font-heading text-brand-black mb-8" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Nos valeurs</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -51,19 +65,20 @@ const valeurs = [
     </div>
   </section>
 
-  <section class="section-padding bg-gray-50">
+  <!-- L'ÉQUIPE -->
+  <section class="section-padding bg-white">
     <div class="container-custom">
       <h2 class="font-heading text-brand-black mb-8">L'équipe</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {team.map((member) => (
           <div class="bg-brand-black rounded-2xl p-6 flex flex-col items-center text-white fade-in-up">
-            <!-- SVG Initiales -->
+            <!-- Initiales SVG -->
             <svg width="64" height="64" class="mb-4" viewBox="0 0 64 64" fill="none">
               <rect width="64" height="64" rx="16" fill="#0a0a0a" />
               <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="28" font-family="Bebas Neue, sans-serif" fill="#16a34a">{member.initials}</text>
             </svg>
-            <h3 class="font-heading text-lg mb-2">{member.name}</h3>
-            <p class="text-brand-green font-semibold mb-1">{member.role}</p>
+            <h3 class="font-heading text-lg mb-1 text-center">{member.name}</h3>
+            <p class="text-brand-green font-semibold mb-3 text-sm text-center">{member.role}</p>
             <p class="text-gray-400 text-sm text-center">{member.bio}</p>
           </div>
         ))}
@@ -71,10 +86,23 @@ const valeurs = [
     </div>
   </section>
 
-  <section class="section-padding bg-white">
+  <!-- NOTRE VISION -->
+  <section class="section-padding bg-gray-50">
     <div class="container-custom max-w-3xl mx-auto">
       <h2 class="font-heading text-brand-black mb-6">Notre vision</h2>
-      <p class="text-gray-700 text-lg">Nous croyons en un football français plus structuré, plus digital, plus ambitieux. Notre mission : accompagner les clubs dans leur développement, leur image et leur professionnalisation.</p>
+      <div class="space-y-4 text-gray-700 text-lg leading-relaxed">
+        <p>Le football français compte des milliers de clubs qui font vivre des centaines de milliers de licenciés. La grande majorité n'a pas les ressources d'un club professionnel — mais elle a les mêmes besoins : communiquer, recruter, progresser.</p>
+        <p>CSMG existe pour rendre accessible ce niveau d'accompagnement. Pas pour les 40 clubs professionnels français. Pour les autres.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-padding bg-brand-black">
+    <div class="container-custom max-w-2xl mx-auto text-center">
+      <h2 class="font-heading text-white mb-4" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Travaillons ensemble.</h2>
+      <p class="text-gray-300 text-lg mb-8">Vous avez un projet pour votre club ? On vous répond sous 24h.</p>
+      <a href="/contact" class="btn-primary inline-block">Nous contacter →</a>
     </div>
   </section>
 </PageLayout>
