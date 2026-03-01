@@ -3,7 +3,7 @@
  */
 export function initFadeInUp() {
   const elements = document.querySelectorAll('.fade-in-up');
-  
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -14,8 +14,8 @@ export function initFadeInUp() {
       });
     },
     {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.05,
+      rootMargin: '0px 0px 0px 0px',
     }
   );
 

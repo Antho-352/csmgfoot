@@ -61,16 +61,18 @@
     @apply py-24 md:py-16;
   }
 
-  /* Fade in up animation */
-  .fade-in-up {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
+  /* Fade in up animation — contenu visible par défaut (progressive enhancement) */
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-  .fade-in-up.is-visible {
-    opacity: 1;
-    transform: translateY(0);
+    .fade-in-up.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
