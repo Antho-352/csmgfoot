@@ -1,25 +1,10 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import pricingData from "../data/pricing.json";
-
-const formationPricing =
-  (pricingData as any[]).find((p) => p.type === "formation")?.services || [];
-const pricingMap: Record<string, any> = {
-  stage_1j: formationPricing.find(
-    (s: any) => s.name === "Stage formation (1 journée)"
-  ),
-  programme_5sessions: formationPricing.find(
-    (s: any) => s.name === "Programme staff technique (5 sessions)"
-  ),
-  formation_annuelle: formationPricing.find(
-    (s: any) => s.name === "Formation annuelle staff"
-  ),
-};
 
 const seo = {
   title: "Formation | CSMG Foot",
   description:
-    "Formation staff technique, préparation mentale, management — CSMG accompagne les clubs de football français dans leur développement.",
+    "Vos joueurs et votre staff ont le niveau pour aller plus haut. CSMG conçoit des programmes de formation adaptés à la réalité du football amateur et semi-professionnel français.",
   image: "/og-default.jpg",
   jsonLd: {
     "@context": "https://schema.org",
@@ -35,7 +20,6 @@ const seo = {
 
 const programmes = [
   {
-    key: "stage_1j",
     title: "Stage formation — 1 journée",
     description:
       "Une journée intensive pour traiter un sujet précis : analyse vidéo, préparation mentale, tactique, leadership... Le format idéal pour une mise à niveau rapide ou un déclencheur de changement au sein de votre staff.",
@@ -48,9 +32,9 @@ const programmes = [
     ],
   },
   {
-    key: "programme_5sessions",
     title: "Programme staff technique — 5 sessions",
-    description: `Un parcours structuré sur plusieurs semaines pour monter en compétences sur les méthodes modernes d'entraînement. Chaque session aborde un axe précis avec des exercices pratiques applicables immédiatement.`,
+    description:
+      "Un parcours structuré sur plusieurs semaines pour monter en compétences sur les méthodes modernes d\u2019entraînement. Chaque session aborde un axe précis avec des exercices pratiques applicables immédiatement.",
     icon: "📘",
     details: [
       { label: "Durée", value: "5 sessions (espacement défini ensemble)" },
@@ -63,10 +47,9 @@ const programmes = [
     ],
   },
   {
-    key: "formation_annuelle",
     title: "Formation annuelle staff",
     description:
-      "L'accompagnement complet sur toute la saison. Interventions calées sur votre calendrier, suivi mensuel, ajustements en cours de saison, bilan de fin d'exercice. Le format le plus efficace pour une transformation durable.",
+      "L\u2019accompagnement complet sur toute la saison. Interventions calées sur votre calendrier, suivi mensuel, ajustements en cours de saison, bilan de fin d\u2019exercice. Le format le plus efficace pour une transformation durable.",
     icon: "🎓",
     details: [
       { label: "Durée", value: "1 saison sportive" },
@@ -118,11 +101,11 @@ const programmes = [
               </div>
               <h3 class="font-heading text-lg mb-2">{p.title}</h3>
               <p class="text-gray-600 mb-4 text-sm flex-1">{p.description}</p>
-              <ul class="space-y-1 mb-4">
+              <ul class="space-y-1">
                 {p.details.map((d) => (
                   <li class="text-sm text-gray-700 flex gap-2">
                     <span class="font-semibold text-brand-black min-w-[60px]">
-                      {d.label} :
+                      {d.label}&nbsp;:
                     </span>
                     <span>{d.value}</span>
                   </li>

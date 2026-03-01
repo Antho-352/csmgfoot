@@ -1,25 +1,10 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
-import pricingData from "../data/pricing.json";
-
-const recrutementPricing =
-  (pricingData as any[]).find((p) => p.type === "recrutement")?.services || [];
-const pricingMap: Record<string, any> = {
-  recherche_ponctuelle: recrutementPricing.find(
-    (s: any) => s.name === "Recherche ponctuelle"
-  ),
-  transfert_complet: recrutementPricing.find(
-    (s: any) => s.name === "Accompagnement transfert"
-  ),
-  partenariat_saison: recrutementPricing.find(
-    (s: any) => s.name === "Partenariat saison"
-  ),
-};
 
 const seo = {
   title: "Recrutement | CSMG Foot",
   description:
-    "Recherche de profils, accompagnement de transferts, partenariat saison — CSMG accompagne les clubs de football français dans leur recrutement.",
+    "Le bon joueur, au bon poste, au bon moment. CSMG accompagne les clubs de football français dans leurs recherches de profils et leurs transferts.",
   image: "/og-default.jpg",
   jsonLd: {
     "@context": "https://schema.org",
@@ -35,55 +20,46 @@ const seo = {
 
 const prestations = [
   {
-    key: "recherche_ponctuelle",
     title: "Recherche ponctuelle",
     description:
-      "Vous avez un poste \u00e0 pourvoir, une fen\u00eatre de transfert qui approche, un besoin urgent. On active notre r\u00e9seau national, on analyse les profils disponibles et on vous pr\u00e9sente une s\u00e9lection cibl\u00e9e \u2014 rapidement.",
-    icon: "\uD83D\uDD0D",
+      "Vous avez un poste à pourvoir, une fenêtre de transfert qui approche, un besoin urgent. On active notre réseau national, on analyse les profils disponibles et on vous présente une sélection ciblée — rapidement.",
+    icon: "🔍",
     details: [
       {
         label: "Inclus",
         value:
-          "D\u00e9finition du profil, sourcing, pr\u00e9sentation de 3 \u00e0 5 candidats qualifi\u00e9s",
+          "Définition du profil, sourcing, présentation de 3 à 5 candidats qualifiés",
       },
-      { label: "D\u00e9lai", value: "7 \u00e0 14 jours" },
-      { label: "Tarif", value: "500 \u20ac \u2014 1\u202f500 \u20ac HT" },
+      { label: "Délai", value: "7 à 14 jours" },
+      { label: "Tarif", value: "500 € — 1 500 € HT" },
     ],
   },
   {
-    key: "transfert_complet",
     title: "Accompagnement transfert complet",
     description:
-      "De l'identification du profil jusqu'\u00e0 l'int\u00e9gration dans le club. Nous g\u00e9rons les \u00e9changes avec le joueur et son entourage, les formalit\u00e9s administratives FFF, et assurons un suivi post-recrutement sur 3 mois.",
-    icon: "\uD83E\uDD1D",
+      "De l\u2019identification du profil jusqu\u2019à l\u2019intégration dans le club. Nous gérons les échanges avec le joueur et son entourage, les formalités administratives FFF, et assurons un suivi post-recrutement sur 3 mois.",
+    icon: "🤝",
     details: [
       {
         label: "Inclus",
-        value: "Sourcing + n\u00e9gociation + administratif FFF + suivi 3 mois",
+        value: "Sourcing + négociation + administratif FFF + suivi 3 mois",
       },
-      {
-        label: "Tarif",
-        value: "1\u202f000 \u20ac \u2014 3\u202f500 \u20ac HT",
-      },
+      { label: "Tarif", value: "1 000 € — 3 500 € HT" },
     ],
   },
   {
-    key: "partenariat_saison",
     title: "Partenariat recrutement saison",
     description:
-      "Un contrat de recrutement sur toute la saison sportive. CSMG devient votre cellule recrutement externalis\u00e9e\u00a0: mercato d'\u00e9t\u00e9, mercato d'hiver, anticipation des d\u00e9parts \u2014 on g\u00e8re l'ensemble de vos besoins en profils.",
-    icon: "\uD83C\uDFC6",
+      "Un contrat de recrutement sur toute la saison sportive. CSMG devient votre cellule recrutement externalisée : mercato d\u2019été, mercato d\u2019hiver, anticipation des départs — on gère l\u2019ensemble de vos besoins en profils.",
+    icon: "🏆",
     details: [
       {
         label: "Inclus",
         value:
-          "Recrutements illimit\u00e9s sur la dur\u00e9e du contrat, reporting mensuel",
+          "Recrutements illimités sur la durée du contrat, reporting mensuel",
       },
-      { label: "Dur\u00e9e", value: "1 saison sportive compl\u00e8te" },
-      {
-        label: "Tarif",
-        value: "2\u202f000 \u20ac \u2014 6\u202f000 \u20ac HT",
-      },
+      { label: "Durée", value: "1 saison sportive complète" },
+      { label: "Tarif", value: "2 000 € — 6 000 € HT" },
     ],
   },
 ];
@@ -129,7 +105,7 @@ const prestations = [
                 {p.details.map((d) => (
                   <li class="text-sm text-gray-700 flex gap-2">
                     <span class="font-semibold text-brand-black min-w-[60px]">
-                      {d.label} :
+                      {d.label}&nbsp;:
                     </span>
                     <span>{d.value}</span>
                   </li>
@@ -149,7 +125,7 @@ const prestations = [
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Brief</h3>
           <p class="text-gray-600">
-            On commence par comprendre votre club : votre système de jeu, votre
+            On commence par comprendre votre club : votre système de jeu, votre
             niveau, votre budget, vos contraintes. Le profil recherché se
             définit ensemble — pas sur une fiche de poste générique.
           </p>
@@ -165,7 +141,7 @@ const prestations = [
         <div class="flex-1 bg-white rounded-xl p-6 border border-gray-200">
           <h3 class="font-heading text-brand-green mb-2">Sélection</h3>
           <p class="text-gray-600">
-            Présentation des profils retenus avec analyse détaillée : niveau,
+            Présentation des profils retenus avec analyse détaillée : niveau,
             disponibilité, prétentions, vidéos si disponibles. Vous choisissez,
             on organise les contacts.
           </p>
@@ -184,7 +160,7 @@ const prestations = [
           class="font-heading text-white mb-3"
           style="font-size: clamp(1.3rem, 2.5vw, 1.8rem);"
         >
-          Un poste à pourvoir ? On s'en occupe.
+          Un poste à pourvoir ? On s'en occupe.
         </h3>
         <p class="text-gray-300 mb-6">
           Dites-nous ce que vous cherchez — on vous répond sous 24h avec une
