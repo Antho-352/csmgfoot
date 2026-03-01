@@ -38,11 +38,18 @@ unset npm_config_prefix
 unset NPM_CONFIG_PREFIX
 export NVM_DIR="$HOME_DIR/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
-nvm use --delete-prefix default --silent 2>/dev/null || nvm use default --silent 2>/dev/null || true
+
+# Forcer Node.js >= 18 (Astro l'exige). Node 20 LTS recommandé.
+nvm use 20 2>/dev/null \
+  || nvm install 20 --default 2>&1 | tee -a "$LOG_FILE" \
+  || { log "❌ ERREUR : impossible de charger Node 20 via NVM."; exit 1; }
+
+# pipefail : rend set -e efficace avec les pipes (npm run build | tee)
+set -o pipefail
 
 # Vérifier que node est disponible
 if ! command -v node &> /dev/null; then
-  log "❌ ERREUR : Node.js introuvable. Vérifiez NVM ou le NodeJS Selector cPanel."
+  log "❌ ERREUR : Node.js introuvable."
   exit 1
 fi
 
