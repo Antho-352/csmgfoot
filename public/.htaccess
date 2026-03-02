@@ -9,12 +9,10 @@ RewriteCond %{THE_REQUEST} \s/((?!blog/).*?)index\.php[\s?]
 RewriteRule ^ /%1 [R=301,L]
 
 # ── 2. WordPress à la racine → rediriger vers /blog/ ─────────────────────────
-# WordPress génère parfois des URLs sans le préfixe /blog/ (ex: wp-login.php)
-RewriteRule ^wp-login\.php$ /blog/wp-login.php [R=302,L]
-RewriteRule ^wp-admin(/.*)?$ /blog/wp-admin$1 [R=302,L]
-RewriteRule ^wp-includes/(.*)$ /blog/wp-includes/$1 [R=302,L]
-RewriteRule ^wp-content/(.*)$ /blog/wp-content/$1 [R=302,L]
-RewriteRule ^xmlrpc\.php$ /blog/xmlrpc.php [R=302,L]
+# On redirige tout ce qui ressemble à du WordPress vers le sous-dossier /blog
+RewriteCond %{REQUEST_URI} ^/(wp-login\.php|wp-admin|wp-includes|wp-content|xmlrpc\.php) [NC]
+RewriteCond %{REQUEST_URI} !^/blog/
+RewriteRule ^(.*)$ /blog/$1 [R=301,L]
 
 # ── 3. WordPress : TOUT /blog → Apache/WP directement (son propre .htaccess) ─
 RewriteRule ^blog(/.*)?$ - [L]
