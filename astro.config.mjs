@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://csmgfoot.fr',
+  site: 'https://www.csmgfoot.fr',
   output: 'static',
   adapter: node({ mode: 'standalone' }),
   integrations: [
