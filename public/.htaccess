@@ -1,37 +1,59 @@
 Options -Indexes
 DirectoryIndex index.html index.php
 
-RewriteEngine On
+# Passe le header Authorization à PHP (CRUCIAL pour l'API REST WordPress)
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
-# ── 1. Fix cPanel : supprime /index.php fantôme ──────────────────────────────
-# (seulement si index.php est dans la requête visible, pas pour le vrai WP)
-RewriteCond %{THE_REQUEST} \s/((?!blog/).*?)index\.php[\s?]
-RewriteRule ^ /%1 [R=301,L]
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-# ── 1b. Redirection non-www → www (301 permanent) ────────────────────────────
-RewriteCond %{HTTP_HOST} ^csmgfoot\.fr$ [NC]
-RewriteRule ^(.*)$ https://www.csmgfoot.fr/$1 [L,R=301]
+  # ── 1. Fix cPanel : supprime /index.php fantôme ────────────────────────────
+  RewriteCond %{THE_REQUEST} \s/((?!blog/).*?)index\.php[\s?]
+  RewriteRule ^ /%1 [R=301,L]
 
-# ── 2. WordPress à la racine → rediriger vers /blog/ ─────────────────────────
-# On redirige tout ce qui ressemble à du WordPress vers le sous-dossier /blog
-RewriteCond %{REQUEST_URI} ^/(wp-login\.php|wp-admin|wp-includes|wp-content|xmlrpc\.php) [NC]
-RewriteCond %{REQUEST_URI} !^/blog/
-RewriteRule ^(.*)$ /blog/$1 [R=301,L]
+  # ── 2. Redirection non-www → www (301 permanent) ───────────────────────────
+  RewriteCond %{HTTP_HOST} ^csmgfoot\.fr$ [NC]
+  RewriteRule ^(.*)$ https://www.csmgfoot.fr/$1 [L,R=301]
 
-# ── 3. WordPress : TOUT /blog → Apache/WP directement (son propre .htaccess) ─
-RewriteRule ^blog(/.*)?$ - [L]
+  # ── 3. WordPress à la racine → rediriger vers /blog/ ───────────────────────
+  # (WP génère parfois des URLs sans le préfixe /blog/)
+  RewriteCond %{REQUEST_URI} ^/(wp-login\.php|wp-admin|wp-includes|wp-content|xmlrpc\.php) [NC]
+  RewriteCond %{REQUEST_URI} !^/blog/
+  RewriteRule ^(.*)$ /blog/$1 [R=301,L]
 
-# ── 4. Fichiers statiques existants → servis directement ─────────────────────
-# (_astro/, logo.svg, favicon.ico, robots.txt, images, etc.)
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
+  # ── 4. wp-json à la racine → routé vers le blog (REST API) ─────────────────
+  RewriteCond %{REQUEST_URI} ^/wp-json
+  RewriteRule ^(.*)$ /blog/index.php [QSA,L]
 
-# ── 5. Dossiers avec index.html → servi directement (pages Astro statiques) ──
-# /             → public_html/index.html
-# /notre-agence/ → public_html/notre-agence/index.html
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteCond %{REQUEST_FILENAME}index.html -f
-RewriteRule ^(.*)$ /$1index.html [L]
+  # ── 5. Ressources WP demandées à la racine → /blog/ (images, etc.) ─────────
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(wp-content/uploads/.*)$ /blog/$1 [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(wp-includes/.*)$ /blog/$1 [L]
 
-# ── 6. Reste → Node.js Astro SSR (routes dynamiques du blog /blog/*) ──────────
-RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]
+  # ── 6. WordPress : TOUT /blog → Apache/WP directement ──────────────────────
+  RewriteRule ^blog(/.*)?$ - [L]
+
+  # ── 7. Fichiers statiques existants → servis directement ───────────────────
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
+  # ── 8. Dossiers avec index.html → servi directement (pages Astro) ──────────
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}index.html -f
+  RewriteRule ^(.*)$ /$1index.html [L]
+
+  # ── 9. Reste → Node.js Astro SSR ───────────────────────────────────────────
+  RewriteRule ^(.*)$ http://127.0.0.1:3862/$1 [P,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Security Headers
+  Header set X-XSS-Protection "1; mode=block"
+  Header set X-Content-Type-Options "nosniff"
+
+  # Cache long pour les assets statiques
+  <FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|js|css|svg|webp|woff2)$">
+    Header set Cache-Control "max-age=31536000, public"
+  </FilesMatch>
+</IfModule>
